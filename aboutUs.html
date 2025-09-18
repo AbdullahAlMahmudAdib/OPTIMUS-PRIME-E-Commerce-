@@ -1,0 +1,596 @@
+<!-- Save as about.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPTIMUS PRIME - About Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a',
+                        secondary: '#1e293b',
+                        accent: '#00f7ff',
+                        neon: '#00f7ff',
+                        purple: '#8b5cf6',
+                        dark: '#0c111b'
+                    },
+                    fontFamily: {
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                        'exo': ['Exo 2', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'slide-in': 'slideIn 0.5s ease-out forwards',
+                        'slide-out': 'slideOut 0.5s ease-out forwards'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #00f7ff, 0 0 10px #00f7ff' },
+                            '100%': { boxShadow: '0 0 20px #00f7ff, 0 0 30px #00f7ff' }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(100%)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        },
+                        slideOut: {
+                            '0%': { transform: 'translateX(0)', opacity: '1' },
+                            '100%': { transform: 'translateX(100%)', opacity: '0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0c111b 0%, #1e293b 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Exo 2', sans-serif;
+        }
+        
+        .neon-border {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6, #00f7ff);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff;
+        }
+        
+        .pulse-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .team-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 247, 255, 0.2);
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+        
+        .floating-1 {
+            width: 300px;
+            height: 300px;
+            background: #00f7ff;
+            top: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            width: 200px;
+            height: 200px;
+            background: #8b5cf6;
+            bottom: 10%;
+            right: 5%;
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        .floating-3 {
+            width: 150px;
+            height: 150px;
+            background: #00f7ff;
+            top: 40%;
+            right: 20%;
+            animation: float 12s ease-in-out infinite;
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid #00f7ff;
+            margin-left: 10px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #00f7ff;
+            left: -9px;
+            top: 5px;
+            box-shadow: 0 0 10px #00f7ff;
+        }
+        
+        .stats-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            background: rgba(0, 247, 255, 0.1);
+            border-color: #00f7ff;
+            transform: translateY(-5px);
+        }
+        
+        .nav-btn {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(0, 247, 255, 0.2);
+            border-color: #00f7ff;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Floating background elements -->
+    <div class="floating-element floating-1"></div>
+    <div class="floating-element floating-2"></div>
+    <div class="floating-element floating-3"></div>
+    
+    <!-- Navigation Bar -->
+    <div class="bg-gray-900 bg-opacity-80 backdrop-blur-sm border-b border-gray-800 sticky top-0 z-30">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <h1 class="text-2xl md:text-3xl font-bold logo-text text-white glow-text">OPTIMUS PRIME</h1>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="flex flex-wrap justify-center gap-2">
+                    <a href="index.html" class="nav-btn px-4 py-2 rounded-lg text-white">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                    <a href="dashboard.html" class="nav-btn px-4 py-2 rounded-lg text-white">
+                        <i class="fas fa-store mr-1"></i> Shop
+                    </a>
+                    <a href="about.html" class="nav-btn px-4 py-2 rounded-lg text-white active">
+                        <i class="fas fa-info-circle mr-1"></i> About
+                    </a>
+                    <a href="#" class="nav-btn px-4 py-2 rounded-lg text-white">
+                        <i class="fas fa-phone-alt mr-1"></i> Contact
+                    </a>
+                </div>
+                
+                <!-- User Actions -->
+                <div class="flex items-center space-x-3">
+                    <div class="search-container flex items-center px-4 py-2 bg-gray-800 bg-opacity-50 rounded-full">
+                        <i class="fas fa-search text-gray-400 mr-2"></i>
+                        <input type="text" placeholder="Search..." class="bg-transparent text-white focus:outline-none">
+                    </div>
+                    <a href="index.html" class="nav-btn px-4 py-2 rounded-lg text-white">
+                        <i class="fas fa-sign-in-alt mr-1"></i> Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <div class="container mx-auto px-4 py-16 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold logo-text text-white mb-6 glow-text">ABOUT OPTIMUS PRIME</h1>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
+            Your premier destination for cutting-edge mobile technology and gaming accessories. 
+            We're passionate about bringing you the best products with exceptional service.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="stats-card neon-border p-6 rounded-xl">
+                <div class="text-5xl text-neon mb-4">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">5000+</h3>
+                <p class="text-gray-300">Products Available</p>
+            </div>
+            
+            <div class="stats-card neon-border p-6 rounded-xl">
+                <div class="text-5xl text-neon mb-4">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">50K+</h3>
+                <p class="text-gray-300">Happy Customers</p>
+            </div>
+            
+            <div class="stats-card neon-border p-6 rounded-xl">
+                <div class="text-5xl text-neon mb-4">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">15+</h3>
+                <p class="text-gray-300">Years Experience</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Our Story Section -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <h2 class="text-3xl md:text-4xl font-bold section-title text-white mb-6">OUR STORY</h2>
+                <p class="text-gray-300 mb-6">
+                    Founded in 2008, OPTIMUS PRIME began as a small electronics store with a big dream: 
+                    to become the ultimate destination for mobile technology enthusiasts and gamers.
+                </p>
+                <p class="text-gray-300 mb-6">
+                    What started as a passion project in a garage has grown into a leading retailer of 
+                    smartphones, tablets, gaming accessories, and cutting-edge technology. Our journey 
+                    has been fueled by our commitment to quality, innovation, and customer satisfaction.
+                </p>
+                <p class="text-gray-300">
+                    Today, we serve thousands of customers worldwide with our carefully curated selection 
+                    of premium products, expert advice, and lightning-fast delivery. Our team of tech 
+                    enthusiasts is dedicated to staying ahead of the curve, bringing you the latest 
+                    innovations before anyone else.
+                </p>
+            </div>
+            <div class="md:w-1/2">
+                <div class="neon-border rounded-2xl overflow-hidden">
+                    <div class="bg-gray-800 border-2 border-dashed border-gray-700 rounded-2xl w-full h-96 flex items-center justify-center">
+                        <div class="text-center p-6">
+                            <div class="text-6xl text-neon mb-4">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Our Journey</h3>
+                            <p class="text-gray-400">From garage startup to industry leader</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mission & Vision Section -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-white mb-4">MISSION & VISION</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto">
+                Our core values drive everything we do
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            <div class="neon-border p-8 rounded-2xl">
+                <div class="text-5xl text-neon mb-6">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">OUR MISSION</h3>
+                <p class="text-gray-300 mb-4">
+                    To empower individuals and businesses with the latest mobile technology and 
+                    gaming accessories, providing exceptional customer service and expert guidance.
+                </p>
+                <p class="text-gray-300">
+                    We strive to make cutting-edge technology accessible to everyone while building 
+                    long-lasting relationships with our customers based on trust, quality, and innovation.
+                </p>
+            </div>
+            
+            <div class="neon-border p-8 rounded-2xl">
+                <div class="text-5xl text-neon mb-6">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">OUR VISION</h3>
+                <p class="text-gray-300 mb-4">
+                    To be the most trusted and innovative mobile technology retailer, recognized for 
+                    our expertise, quality products, and exceptional customer experience.
+                </p>
+                <p class="text-gray-300">
+                    We envision a future where technology enhances every aspect of life, and we're 
+                    committed to being at the forefront of that transformation.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Timeline Section -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-white mb-4">OUR MILESTONES</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto">
+                Key moments in our journey
+            </p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto">
+            <div class="timeline-item mb-12">
+                <h3 class="text-xl font-bold text-white mb-2">2008 - The Beginning</h3>
+                <p class="text-gray-300">
+                    OPTIMUS PRIME opens its doors as a small electronics store in downtown with just 50 products.
+                </p>
+            </div>
+            
+            <div class="timeline-item mb-12">
+                <h3 class="text-xl font-bold text-white mb-2">2012 - First Expansion</h3>
+                <p class="text-gray-300">
+                    We open our second location and expand our inventory to over 500 products.
+                </p>
+            </div>
+            
+            <div class="timeline-item mb-12">
+                <h3 class="text-xl font-bold text-white mb-2">2016 - Online Presence</h3>
+                <p class="text-gray-300">
+                    Launch of our e-commerce platform, making our products accessible worldwide.
+                </p>
+            </div>
+            
+            <div class="timeline-item mb-12">
+                <h3 class="text-xl font-bold text-white mb-2">2020 - Gaming Division</h3>
+                <p class="text-gray-300">
+                    Introduced our dedicated gaming accessories section to serve the growing esports community.
+                </p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3 class="text-xl font-bold text-white mb-2">2023 - Industry Leader</h3>
+                <p class="text-gray-300">
+                    Celebrated 15 years in business with over 50,000 satisfied customers and 5,000+ products.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Team Section -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-white mb-4">MEET OUR TEAM</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto">
+                The passionate people behind our success
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            <!-- Team Member 1 -->
+            <div class="team-card neon-border p-6 text-center">
+                <div class="bg-gray-800 border-2 border-dashed border-gray-700 rounded-full w-32 h-32 mx-auto mb-6 flex items-center justify-center">
+                    <div class="text-4xl text-neon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-1">Alex Johnson</h3>
+                <p class="text-neon mb-3">CEO & Founder</p>
+                <p class="text-gray-400 text-sm">
+                    Tech enthusiast with 15+ years in the industry. Passionate about innovation and customer experience.
+                </p>
+            </div>
+            
+            <!-- Team Member 2 -->
+            <div class="team-card neon-border p-6 text-center">
+                <div class="bg-gray-800 border-2 border-dashed border-gray-700 rounded-full w-32 h-32 mx-auto mb-6 flex items-center justify-center">
+                    <div class="text-4xl text-neon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-1">Sarah Williams</h3>
+                <p class="text-neon mb-3">Chief Technology Officer</p>
+                <p class="text-gray-400 text-sm">
+                    Expert in mobile technologies and emerging trends. Ensures we stay ahead of the curve.
+                </p>
+            </div>
+            
+            <!-- Team Member 3 -->
+            <div class="team-card neon-border p-6 text-center">
+                <div class="bg-gray-800 border-2 border-dashed border-gray-700 rounded-full w-32 h-32 mx-auto mb-6 flex items-center justify-center">
+                    <div class="text-4xl text-neon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-1">Michael Chen</h3>
+                <p class="text-neon mb-3">Head of Gaming Division</p>
+                <p class="text-gray-400 text-sm">
+                    Professional gamer and tech expert. Brings authentic gaming experience to our product selection.
+                </p>
+            </div>
+            
+            <!-- Team Member 4 -->
+            <div class="team-card neon-border p-6 text-center">
+                <div class="bg-gray-800 border-2 border-dashed border-gray-700 rounded-full w-32 h-32 mx-auto mb-6 flex items-center justify-center">
+                    <div class="text-4xl text-neon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-1">Emma Rodriguez</h3>
+                <p class="text-neon mb-3">Customer Experience Director</p>
+                <p class="text-gray-400 text-sm">
+                    Dedicated to ensuring every customer interaction is exceptional. The voice of our customers.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Values Section -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-white mb-4">OUR CORE VALUES</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto">
+                Principles that guide our every decision
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="neon-border p-8 rounded-2xl text-center">
+                <div class="text-5xl text-neon mb-6">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">EXCELLENCE</h3>
+                <p class="text-gray-300">
+                    We strive for excellence in every product we sell and every interaction we have with customers.
+                </p>
+            </div>
+            
+            <div class="neon-border p-8 rounded-2xl text-center">
+                <div class="text-5xl text-neon mb-6">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">INTEGRITY</h3>
+                <p class="text-gray-300">
+                    We conduct business with honesty, transparency, and ethical practices at all times.
+                </p>
+            </div>
+            
+            <div class="neon-border p-8 rounded-2xl text-center">
+                <div class="text-5xl text-neon mb-6">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">INNOVATION</h3>
+                <p class="text-gray-300">
+                    We embrace change and continuously seek new ways to improve our products and services.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="container mx-auto px-4 py-16 text-center">
+        <div class="neon-border p-12 rounded-2xl max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-white mb-6">READY TO EXPERIENCE THE FUTURE?</h2>
+            <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+                Join thousands of satisfied customers who trust OPTIMUS PRIME for their mobile technology needs.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="dashboard.html" class="px-8 py-4 rounded-lg text-white font-bold bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 transition-all">
+                    <i class="fas fa-shopping-bag mr-2"></i> Shop Now
+                </a>
+                <a href="#" class="px-8 py-4 rounded-lg text-white font-bold nav-btn">
+                    <i class="fas fa-phone-alt mr-2"></i> Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="mt-16 w-full bg-gray-900 bg-opacity-50 border-t border-gray-800">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold logo-text text-white mb-4 glow-text">OPTIMUS PRIME</h3>
+                    <p class="text-gray-400">
+                        Your premier destination for the latest mobile technology and gaming accessories.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-neon transition">Home</a></li>
+                        <li><a href="dashboard.html" class="text-gray-400 hover:text-neon transition">Shop</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-neon transition">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-neon transition">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon transition">Shipping Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon transition">Returns & Refunds</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>123 Tech Street, Digital City</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>info@optimusprime.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500">
+                <p>© 2023 OPTIMUS PRIME Mobile Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Add pulse animation to buttons on hover
+        document.querySelectorAll('.nav-btn, .stats-card').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.classList.add('pulse-glow');
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.classList.remove('pulse-glow');
+            });
+        });
+    </script>
+</body>
+</html>
