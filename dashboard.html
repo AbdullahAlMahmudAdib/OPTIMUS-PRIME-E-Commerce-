@@ -1,3 +1,4 @@
+<!-- Save as dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,24 +79,20 @@
             display: flex;
             flex-direction: column;
         }
-        
         /* Main content wrapper for proper footer positioning */
         .main-content-wrapper {
             flex: 1;
             display: flex;
             flex-direction: column;
         }
-        
         .dashboard-content {
             flex: 1;
         }
-        
         /* Performance optimizations */
         * {
             transition-property: transform, opacity, background-color, border-color;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
         .neon-border {
             position: relative;
             border-radius: 12px;
@@ -199,7 +196,6 @@
             border-color: #00f7ff;
             box-shadow: 0 0 0 3px rgba(0, 247, 255, 0.2);
         }
-        
         /* Optimized floating animations */
         .floating-element {
             position: absolute;
@@ -257,7 +253,6 @@
             background: rgba(0, 247, 255, 0.2);
             border-color: #00f7ff;
         }
-        
         /* Fixed z-index values */
         .sidebar-overlay {
             background: rgba(0, 0, 0, 0.7);
@@ -307,6 +302,103 @@
             border-right: 10px solid transparent;
             border-bottom: 10px solid rgba(129, 140, 153, 0.3);
         }
+        
+        /* Hero Section Styles */
+        .hero-section {
+            background: linear-gradient(120deg, #0a0f1a, #1e293b);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2.5rem;
+        }
+        
+        .hero-badge {
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 247, 255, 0.3);
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #00f7ff;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .hero-cta {
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 247, 255, 0.4);
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 247, 255, 0.6);
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 40%;
+            background: linear-gradient(45deg, transparent, rgba(0, 247, 255, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        
+        .hero-image-placeholder {
+            width: 200px;
+            height: 200px;
+            background: rgba(30, 41, 59, 0.7);
+            border: 2px dashed rgba(129, 140, 153, 0.5);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00f7ff;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="font-sans">
@@ -314,12 +406,10 @@
     <div class="floating-element floating-1"></div>
     <div class="floating-element floating-2"></div>
     <div class="floating-element floating-3"></div>
-    
     <!-- Main content wrapper for proper layout -->
     <div class="main-content-wrapper">
         <!-- Mobile Sidebar Overlay -->
         <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-70 z-45 hidden" onclick="toggleSidebar()"></div>
-        
         <!-- Sidebar for Categories -->
         <div id="categorySidebar" class="sidebar fixed top-0 left-0 h-full w-64 z-50 transform -translate-x-full md:translate-x-0">
             <div class="p-6 border-b border-gray-700">
@@ -330,7 +420,6 @@
                     </button>
                 </div>
             </div>
-            
             <div class="p-4">
                 <ul class="space-y-2" role="menu">
                     <li>
@@ -375,14 +464,12 @@
                     </li>
                 </ul>
             </div>
-            
             <div class="absolute bottom-0 w-full p-4 border-t border-gray-700">
                 <button class="w-full py-3 rounded-lg text-white bg-gradient-to-r from-purple-600 to-cyan-500">
                     <i class="fas fa-shopping-cart mr-2"></i> View Cart
                 </button>
             </div>
         </div>
-        
         <!-- Menu Popup -->
         <div id="menuPopup" class="menu-popup absolute top-16 right-4 w-64 p-4 hidden" role="menu" aria-labelledby="menuButton">
             <ul class="space-y-2">
@@ -413,7 +500,6 @@
                 </li>
             </ul>
         </div>
-        
         <!-- User Menu -->
         <div id="userMenu" class="user-menu absolute top-16 right-4 w-64 p-4 hidden" role="menu" aria-labelledby="userMenuBtn">
             <ul class="space-y-2">
@@ -444,7 +530,6 @@
                 </li>
             </ul>
         </div>
-        
         <!-- Main Content -->
         <div class="md:ml-64">
             <!-- Top Navigation Bar -->
@@ -465,7 +550,6 @@
                                 </button>
                             </div>
                         </div>
-                        
                         <!-- Brand Navigation -->
                         <div class="flex overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
                             <div class="flex space-x-2">
@@ -487,14 +571,12 @@
                                 </button>
                             </div>
                         </div>
-                        
                         <!-- Search Bar and Navigation Buttons -->
                         <div class="flex flex-col md:flex-row items-center space-y-3 md:space-y-0 md:space-x-3">
                             <div class="search-container flex items-center px-4 py-2 w-full md:w-auto min-w-[250px]">
                                 <i class="fas fa-search text-gray-400 mr-2"></i>
                                 <input type="text" placeholder="Search products..." class="bg-transparent text-white w-full focus:outline-none">
                             </div>
-                            
                             <!-- Navigation Buttons -->
                             <div class="hidden md:flex items-center space-x-2">
                                 <button class="nav-btn px-4 py-2 rounded-lg text-white whitespace-nowrap">
@@ -514,6 +596,23 @@
             
             <!-- Dashboard Content -->
             <div class="dashboard-content container mx-auto px-4 py-8">
+                <!-- Hero Section -->
+                <div class="hero-section neon-border">
+                    <div class="hero-content">
+                        <div class="hero-badge">LIMITED TIME OFFER</div>
+                        <h2 class="hero-title">SUMMER SALE UP TO 50% OFF</h2>
+                        <p class="hero-subtitle text-gray-300">Get the latest smartphones, tablets, and accessories at unbeatable prices. Don't miss out on our biggest sale of the year!</p>
+                        <a href="#" class="hero-cta text-white">
+                            <i class="fas fa-bolt mr-2"></i> SHOP NOW
+                        </a>
+                    </div>
+                    <div class="hero-image">
+                        <div class="hero-image-placeholder">
+                            <i class="fas fa-mobile-alt text-5xl"></i>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Page Title -->
                 <div class="mb-8">
                     <h2 class="text-3xl font-bold text-white mb-2">Featured Products</h2>
@@ -550,7 +649,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <!-- Product 2 -->
                     <div class="product-card neon-border">
                         <div class="product-image">
@@ -579,7 +677,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <!-- Product 3 -->
                     <div class="product-card neon-border">
                         <div class="product-image">
@@ -608,7 +705,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <!-- Product 4 -->
                     <div class="product-card neon-border">
                         <div class="product-image">
@@ -637,7 +733,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <!-- Product 5 -->
                     <div class="product-card neon-border">
                         <div class="product-image">
@@ -666,7 +761,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <!-- Product 6 -->
                     <div class="product-card neon-border">
                         <div class="product-image">
@@ -695,7 +789,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <!-- Product 7 -->
                     <div class="product-card neon-border">
                         <div class="product-image">
@@ -724,7 +817,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <!-- Product 8 -->
                     <div class="product-card neon-border">
                         <div class="product-image">
@@ -754,7 +846,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <!-- Load More Button -->
                 <div class="mt-12 text-center">
                     <button class="px-8 py-3 rounded-lg text-white bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 transition-all">
@@ -763,7 +854,6 @@
                 </div>
             </div>
         </div>
-        
         <!-- Footer -->
         <footer class="mt-16 w-full bg-gray-900 bg-opacity-50 border-t border-gray-800 md:ml-64">
             <div class="container mx-auto px-4 py-8">
@@ -814,13 +904,11 @@
             </div>
         </footer>
     </div>
-
     <script>
         // Toggle sidebar on mobile
         function toggleSidebar() {
             const sidebar = document.getElementById('categorySidebar');
             const overlay = document.getElementById('sidebarOverlay');
-            
             if (sidebar.classList.contains('-translate-x-full')) {
                 sidebar.classList.remove('-translate-x-full');
                 sidebar.classList.add('animate-sidebar-in');
@@ -829,7 +917,6 @@
                 sidebar.classList.remove('animate-sidebar-in');
                 sidebar.classList.add('animate-sidebar-out');
                 overlay.classList.add('hidden');
-                
                 // Reset animation classes after animation completes
                 setTimeout(() => {
                     sidebar.classList.remove('animate-sidebar-out');
@@ -837,11 +924,9 @@
                 }, 300);
             }
         }
-        
         // Toggle menu popup
         function toggleMenuPopup() {
             const popup = document.getElementById('menuPopup');
-            
             if (popup.classList.contains('hidden')) {
                 popup.classList.remove('hidden');
                 popup.classList.add('animate-fade-in');
@@ -850,11 +935,9 @@
                 popup.classList.remove('animate-fade-in');
             }
         }
-        
         // Toggle user menu - Fixed function
         function toggleUserMenu() {
             const menu = document.getElementById('userMenu');
-            
             if (menu.classList.contains('hidden')) {
                 menu.classList.remove('hidden');
                 menu.classList.add('animate-fade-in');
@@ -863,28 +946,23 @@
                 menu.classList.remove('animate-fade-in');
             }
         }
-        
         // Close popups when clicking outside
         document.addEventListener('click', function(event) {
             const menuPopup = document.getElementById('menuPopup');
             const menuButton = document.getElementById('menuButton');
-            
             const userMenu = document.getElementById('userMenu');
             const userMenuBtn = document.getElementById('userMenuBtn');
             const logoutBtn = document.getElementById('logoutBtn');
-            
             // Close category menu popup
             if (menuPopup && menuButton && !menuPopup.contains(event.target) && !menuButton.contains(event.target)) {
                 menuPopup.classList.add('hidden');
                 menuPopup.classList.remove('animate-fade-in');
             }
-            
             // Close user menu
             if (userMenu && userMenuBtn && !userMenu.contains(event.target) && !userMenuBtn.contains(event.target)) {
                 userMenu.classList.add('hidden');
                 userMenu.classList.remove('animate-fade-in');
             }
-            
             // Handle logout
             if (logoutBtn && logoutBtn.contains(event.target)) {
                 alert('You have been logged out!');
@@ -892,7 +970,6 @@
                 // window.location.href = 'index.html';
             }
         });
-        
         // Category button active state
         document.querySelectorAll('.category-btn').forEach(button => {
             button.addEventListener('click', function() {
@@ -906,7 +983,6 @@
                 this.classList.add('active');
             });
         });
-        
         // Fixed brand button active state
         document.querySelectorAll('.brand-btn').forEach(button => {
             button.addEventListener('click', function() {
@@ -916,25 +992,21 @@
                     btn.style.background = 'rgba(30, 41, 59, 0.7)';
                     btn.style.borderColor = 'rgba(129, 140, 153, 0.3)';
                 });
-                
                 // Add active class to clicked button
                 this.classList.add('active');
                 this.style.background = 'rgba(0, 247, 255, 0.2)';
                 this.style.borderColor = '#00f7ff';
             });
         });
-        
         // Add pulse animation to cart buttons on hover
         document.querySelectorAll('.cart-btn').forEach(button => {
             button.addEventListener('mouseenter', function() {
                 this.classList.add('pulse-glow');
             });
-            
             button.addEventListener('mouseleave', function() {
                 this.classList.remove('pulse-glow');
             });
         });
-        
         // Hide scrollbar for brand navigation
         const style = document.createElement('style');
         style.innerHTML = `
@@ -947,14 +1019,12 @@
             }
         `;
         document.head.appendChild(style);
-        
         // Keyboard navigation support
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 // Close all open menus on Escape key
                 document.getElementById('menuPopup').classList.add('hidden');
                 document.getElementById('userMenu').classList.add('hidden');
-                
                 // Close sidebar on mobile
                 const sidebar = document.getElementById('categorySidebar');
                 if (!sidebar.classList.contains('-translate-x-full')) {

@@ -1,0 +1,739 @@
+<!-- Save as viewcart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPTIMUS PRIME - Shopping Cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a',
+                        secondary: '#1e293b',
+                        accent: '#00f7ff',
+                        neon: '#00f7ff',
+                        purple: '#8b5cf6',
+                        dark: '#0c111b'
+                    },
+                    fontFamily: {
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                        'exo': ['Exo 2', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'slide-in': 'slideIn 0.5s ease-out forwards',
+                        'slide-out': 'slideOut 0.5s ease-out forwards'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #00f7ff, 0 0 10px #00f7ff' },
+                            '100%': { boxShadow: '0 0 20px #00f7ff, 0 0 30px #00f7ff' }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(100%)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        },
+                        slideOut: {
+                            '0%': { transform: 'translateX(0)', opacity: '1' },
+                            '100%': { transform: 'translateX(100%)', opacity: '0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0c111b 0%, #1e293b 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Exo 2', sans-serif;
+        }
+        
+        .neon-border {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6, #00f7ff);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff;
+        }
+        
+        .pulse-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .cart-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .cart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 247, 255, 0.2);
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+        
+        .floating-1 {
+            width: 300px;
+            height: 300px;
+            background: #00f7ff;
+            top: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            width: 200px;
+            height: 200px;
+            background: #8b5cf6;
+            bottom: 10%;
+            right: 5%;
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        .floating-3 {
+            width: 150px;
+            height: 150px;
+            background: #00f7ff;
+            top: 40%;
+            right: 20%;
+            animation: float 12s ease-in-out infinite;
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .input-field {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #00f7ff;
+            box-shadow: 0 0 0 3px rgba(0, 247, 255, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.3);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20px;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+        }
+        
+        .btn-primary:hover::after {
+            left: 120%;
+        }
+        
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 247, 255, 0.2);
+            border-color: #00f7ff;
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(0, 247, 255, 0.2);
+            border-color: #00f7ff;
+            transform: translateY(-2px);
+        }
+        
+        .quantity-btn {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .quantity-btn:hover {
+            background: rgba(0, 247, 255, 0.2);
+            border-color: #00f7ff;
+        }
+        
+        .product-image {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #1e293b, #0f172a);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .summary-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .coupon-input {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            border-radius: 8px 0 0 8px;
+            padding: 0.75rem 1rem;
+            color: white;
+            width: 100%;
+        }
+        
+        .coupon-input:focus {
+            outline: none;
+            border-color: #00f7ff;
+            box-shadow: 0 0 0 3px rgba(0, 247, 255, 0.2);
+        }
+        
+        .coupon-btn {
+            border-radius: 0 8px 8px 0;
+            padding: 0 1.5rem;
+        }
+        
+        .cart-item {
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item.removing {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Floating background elements -->
+    <div class="floating-element floating-1"></div>
+    <div class="floating-element floating-2"></div>
+    <div class="floating-element floating-3"></div>
+    
+    <!-- Navigation Bar -->
+    <div class="bg-gray-900 bg-opacity-80 backdrop-blur-sm border-b border-gray-800 sticky top-0 z-30">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <h1 class="text-2xl md:text-3xl font-bold logo-text text-white glow-text">OPTIMUS PRIME</h1>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="flex flex-wrap justify-center gap-2">
+                    <a href="index.html" class="nav-btn px-4 py-2 rounded-lg text-white">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                    <a href="dashboard.html" class="nav-btn px-4 py-2 rounded-lg text-white">
+                        <i class="fas fa-store mr-1"></i> Shop
+                    </a>
+                    <a href="about.html" class="nav-btn px-4 py-2 rounded-lg text-white">
+                        <i class="fas fa-info-circle mr-1"></i> About
+                    </a>
+                    <a href="contact.html" class="nav-btn px-4 py-2 rounded-lg text-white">
+                        <i class="fas fa-phone-alt mr-1"></i> Contact
+                    </a>
+                </div>
+                
+                <!-- User Actions -->
+                <div class="flex items-center space-x-3">
+                    <div class="search-container flex items-center px-4 py-2 bg-gray-800 bg-opacity-50 rounded-full">
+                        <i class="fas fa-search text-gray-400 mr-2"></i>
+                        <input type="text" placeholder="Search..." class="bg-transparent text-white focus:outline-none">
+                    </div>
+                    <a href="viewcart.html" class="nav-btn px-4 py-2 rounded-lg text-white active">
+                        <i class="fas fa-shopping-cart mr-1"></i> Cart (3)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 py-4">
+        <nav class="text-gray-400">
+            <ol class="flex items-center space-x-2">
+                <li><a href="dashboard.html" class="hover:text-neon transition">Home</a></li>
+                <li><i class="fas fa-chevron-right text-xs"></i></li>
+                <li class="text-neon">Shopping Cart</li>
+            </ol>
+        </nav>
+    </div>
+    
+    <!-- Hero Section -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold logo-text text-white mb-4 glow-text">YOUR SHOPPING CART</h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Review your items and proceed to checkout
+            </p>
+        </div>
+        
+        <!-- Cart Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Cart Items -->
+            <div class="lg:col-span-2">
+                <!-- Cart Item 1 -->
+                <div class="cart-card neon-border p-6 mb-6 cart-item" id="item1">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="product-image mr-6 mb-4 md:mb-0">
+                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-16 h-16 flex items-center justify-center text-gray-500">
+                                <i class="fas fa-mobile-alt text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">iPhone 15 Pro</h3>
+                                    <p class="text-gray-400">Titanium | 256GB</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold text-white">$1,199.00</div>
+                                    <div class="text-gray-400 line-through">$1,299.00</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center mt-4">
+                                <div class="flex items-center mr-6">
+                                    <button class="quantity-btn rounded-l" onclick="decreaseQuantity('qty1')">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" id="qty1" value="1" class="input-field w-12 text-center" readonly>
+                                    <button class="quantity-btn rounded-r" onclick="increaseQuantity('qty1')">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <button class="text-gray-400 hover:text-red-500 transition" onclick="removeItem('item1')">
+                                    <i class="fas fa-trash-alt mr-1"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Item 2 -->
+                <div class="cart-card neon-border p-6 mb-6 cart-item" id="item2">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="product-image mr-6 mb-4 md:mb-0">
+                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-16 h-16 flex items-center justify-center text-gray-500">
+                                <i class="fas fa-headphones text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Sony WH-1000XM5</h3>
+                                    <p class="text-gray-400">Noise Canceling Headphones</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold text-white">$349.00</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center mt-4">
+                                <div class="flex items-center mr-6">
+                                    <button class="quantity-btn rounded-l" onclick="decreaseQuantity('qty2')">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" id="qty2" value="1" class="input-field w-12 text-center" readonly>
+                                    <button class="quantity-btn rounded-r" onclick="increaseQuantity('qty2')">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <button class="text-gray-400 hover:text-red-500 transition" onclick="removeItem('item2')">
+                                    <i class="fas fa-trash-alt mr-1"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Item 3 -->
+                <div class="cart-card neon-border p-6 cart-item" id="item3">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="product-image mr-6 mb-4 md:mb-0">
+                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-16 h-16 flex items-center justify-center text-gray-500">
+                                <i class="fas fa-charging-station text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Fast Wireless Charger</h3>
+                                    <p class="text-gray-400">15W Charging Pad</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold text-white">$49.99</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center mt-4">
+                                <div class="flex items-center mr-6">
+                                    <button class="quantity-btn rounded-l" onclick="decreaseQuantity('qty3')">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" id="qty3" value="2" class="input-field w-12 text-center" readonly>
+                                    <button class="quantity-btn rounded-r" onclick="increaseQuantity('qty3')">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <button class="text-gray-400 hover:text-red-500 transition" onclick="removeItem('item3')">
+                                    <i class="fas fa-trash-alt mr-1"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Actions -->
+                <div class="flex flex-col sm:flex-row justify-between mt-8 gap-4">
+                    <a href="dashboard.html" class="btn-secondary px-6 py-3 rounded-lg text-white font-bold text-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+                    </a>
+                    <button class="btn-secondary px-6 py-3 rounded-lg text-white font-bold">
+                        <i class="fas fa-sync-alt mr-2"></i> Update Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div>
+                <div class="summary-card neon-border p-6 sticky top-24">
+                    <h2 class="text-2xl font-bold section-title text-white mb-6">ORDER SUMMARY</h2>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Subtotal</span>
+                            <span class="text-white">$1,597.99</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Shipping</span>
+                            <span class="text-green-400">FREE</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Tax</span>
+                            <span class="text-white">$127.84</span>
+                        </div>
+                        <div class="border-t border-gray-700 pt-4">
+                            <div class="flex justify-between text-xl font-bold">
+                                <span class="text-white">Total</span>
+                                <span class="text-neon">$1,725.83</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Coupon Code -->
+                    <div class="mb-6">
+                        <label class="block text-gray-300 mb-2">Coupon Code</label>
+                        <div class="flex">
+                            <input type="text" placeholder="Enter coupon code" class="coupon-input">
+                            <button class="btn-primary coupon-btn">
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Checkout Button -->
+                    <button class="btn-primary w-full py-4 rounded-lg text-white font-bold text-lg mb-4">
+                        <i class="fas fa-lock mr-2"></i> PROCEED TO CHECKOUT
+                    </button>
+                    
+                    <!-- Secure Payment Info -->
+                    <div class="text-center text-gray-400 text-sm mt-6">
+                        <i class="fas fa-shield-alt mr-1"></i> Secure SSL Encryption
+                    </div>
+                    <div class="flex justify-center mt-2 space-x-4">
+                        <i class="fab fa-cc-visa text-2xl text-gray-400"></i>
+                        <i class="fab fa-cc-mastercard text-2xl text-gray-400"></i>
+                        <i class="fab fa-cc-amex text-2xl text-gray-400"></i>
+                        <i class="fab fa-cc-paypal text-2xl text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <!-- Empty Cart Message (Hidden by default) -->
+                <div id="emptyCart" class="cart-card neon-border p-12 text-center hidden">
+                    <div class="text-5xl text-gray-600 mb-4">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Your cart is empty</h3>
+                    <p class="text-gray-400 mb-6">Looks like you haven't added anything to your cart yet</p>
+                    <a href="dashboard.html" class="btn-primary px-6 py-3 rounded-lg text-white font-bold">
+                        <i class="fas fa-store mr-2"></i> Start Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recommended Products -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-white mb-4">YOU MAY ALSO LIKE</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">
+                Complete your setup with these recommended accessories
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Product 1 -->
+            <div class="cart-card neon-border">
+                <div class="p-4">
+                    <div class="product-image mx-auto mb-4">
+                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-24 h-24 flex items-center justify-center text-gray-500">
+                            <i class="fas fa-mobile-alt text-3xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white text-center mb-2">iPhone 15 Case</h3>
+                    <div class="flex justify-between items-center">
+                        <span class="text-neon font-bold">$39.99</span>
+                        <button class="btn-secondary px-3 py-1 rounded text-sm">
+                            <i class="fas fa-plus mr-1"></i> Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="cart-card neon-border">
+                <div class="p-4">
+                    <div class="product-image mx-auto mb-4">
+                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-24 h-24 flex items-center justify-center text-gray-500">
+                            <i class="fas fa-tablet-alt text-3xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white text-center mb-2">Screen Protector</h3>
+                    <div class="flex justify-between items-center">
+                        <span class="text-neon font-bold">$19.99</span>
+                        <button class="btn-secondary px-3 py-1 rounded text-sm">
+                            <i class="fas fa-plus mr-1"></i> Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="cart-card neon-border">
+                <div class="p-4">
+                    <div class="product-image mx-auto mb-4">
+                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-24 h-24 flex items-center justify-center text-gray-500">
+                            <i class="fas fa-headphones text-3xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white text-center mb-2">Wireless Earbuds</h3>
+                    <div class="flex justify-between items-center">
+                        <span class="text-neon font-bold">$129.99</span>
+                        <button class="btn-secondary px-3 py-1 rounded text-sm">
+                            <i class="fas fa-plus mr-1"></i> Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="cart-card neon-border">
+                <div class="p-4">
+                    <div class="product-image mx-auto mb-4">
+                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-24 h-24 flex items-center justify-center text-gray-500">
+                            <i class="fas fa-gamepad text-3xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white text-center mb-2">Gaming Controller</h3>
+                    <div class="flex justify-between items-center">
+                        <span class="text-neon font-bold">$79.99</span>
+                        <button class="btn-secondary px-3 py-1 rounded text-sm">
+                            <i class="fas fa-plus mr-1"></i> Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="mt-16 w-full bg-gray-900 bg-opacity-50 border-t border-gray-800">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold logo-text text-white mb-4 glow-text">OPTIMUS PRIME</h3>
+                    <p class="text-gray-400">
+                        Your premier destination for the latest mobile technology and gaming accessories.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-neon transition">Home</a></li>
+                        <li><a href="dashboard.html" class="text-gray-400 hover:text-neon transition">Shop</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-neon transition">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-neon transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-neon transition">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon transition">Shipping Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon transition">Returns & Refunds</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>123 Tech Street, Digital City</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>info@optimusprime.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500">
+                <p>© 2023 OPTIMUS PRIME Mobile Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Add pulse animation to buttons on hover
+        document.querySelectorAll('.btn-primary, .btn-secondary, .nav-btn').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.classList.add('pulse-glow');
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.classList.remove('pulse-glow');
+            });
+        });
+        
+        // Quantity buttons functionality
+        function increaseQuantity(id) {
+            const input = document.getElementById(id);
+            let value = parseInt(input.value);
+            value++;
+            input.value = value;
+        }
+        
+        function decreaseQuantity(id) {
+            const input = document.getElementById(id);
+            let value = parseInt(input.value);
+            if (value > 1) {
+                value--;
+                input.value = value;
+            }
+        }
+        
+        // Remove item functionality with animation
+        function removeItem(itemId) {
+            const item = document.getElementById(itemId);
+            item.classList.add('removing');
+            
+            setTimeout(() => {
+                item.remove();
+                updateCartCount();
+            }, 300);
+        }
+        
+        // Function to update cart count
+        function updateCartCount() {
+            const cartItems = document.querySelectorAll('.cart-item').length;
+            const cartButton = document.querySelector('.fa-shopping-cart').parentElement;
+            
+            if (cartItems > 0) {
+                cartButton.innerHTML = `<i class="fas fa-shopping-cart mr-1"></i> Cart (${cartItems})`;
+            } else {
+                cartButton.innerHTML = `<i class="fas fa-shopping-cart mr-1"></i> Cart (0)`;
+                document.getElementById('emptyCart').classList.remove('hidden');
+            }
+        }
+        
+        // Initialize cart count
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>
