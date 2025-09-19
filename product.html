@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPTIMUS PRIME - iPhone 15 Pro</title>
+    <title>OPTIMUS PRIME - Product Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -18,7 +18,8 @@
                         accent: '#00f7ff',
                         neon: '#00f7ff',
                         purple: '#8b5cf6',
-                        dark: '#0c111b'
+                        dark: '#0c111b',
+                        sidebar: '#0a0f1a'
                     },
                     fontFamily: {
                         'orbitron': ['Orbitron', 'sans-serif'],
@@ -29,12 +30,15 @@
                         'float': 'float 6s ease-in-out infinite',
                         'glow': 'glow 2s ease-in-out infinite alternate',
                         'slide-in': 'slideIn 0.5s ease-out forwards',
-                        'slide-out': 'slideOut 0.5s ease-out forwards'
+                        'slide-out': 'slideOut 0.5s ease-out forwards',
+                        'sidebar-in': 'sidebarIn 0.3s ease-out forwards',
+                        'sidebar-out': 'sidebarOut 0.3s ease-out forwards',
+                        'fade-in': 'fadeIn 0.3s ease-out forwards'
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' }
+                            '50%': { transform: 'translateY(-10px)' }
                         },
                         glow: {
                             '0%': { boxShadow: '0 0 5px #00f7ff, 0 0 10px #00f7ff' },
@@ -47,6 +51,18 @@
                         slideOut: {
                             '0%': { transform: 'translateX(0)', opacity: '1' },
                             '100%': { transform: 'translateX(100%)', opacity: '0' }
+                        },
+                        sidebarIn: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' }
+                        },
+                        sidebarOut: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-100%)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
                         }
                     }
                 }
@@ -92,46 +108,73 @@
             animation: glow 2s ease-in-out infinite alternate;
         }
         
-        .product-card {
+        .sidebar {
+            background: rgba(10, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .admin-card {
             background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(10px);
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
         
-        .product-image {
-            background: linear-gradient(45deg, #1e293b, #0f172a);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            height: 400px;
-        }
-        
-        .product-image::before {
-            content: '';
+        .floating-element {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 247, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.6;
+            z-index: -1;
         }
         
-        .product-image:hover::before {
-            transform: rotate(45deg) translate(20%, 20%);
+        .floating-1 {
+            width: 300px;
+            height: 300px;
+            background: #00f7ff;
+            top: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
         }
         
-        .price-tag {
-            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            display: inline-block;
+        .floating-2 {
+            width: 200px;
+            height: 200px;
+            background: #8b5cf6;
+            bottom: 10%;
+            right: 5%;
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        .floating-3 {
+            width: 150px;
+            height: 150px;
+            background: #00f7ff;
+            top: 40%;
+            right: 20%;
+            animation: float 12s ease-in-out infinite;
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .input-field {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #00f7ff;
+            box-shadow: 0 0 0 3px rgba(0, 247, 255, 0.2);
         }
         
         .btn-primary {
@@ -178,90 +221,6 @@
             transform: translateY(-2px);
         }
         
-        .floating-element {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.6;
-            z-index: -1;
-        }
-        
-        .floating-1 {
-            width: 300px;
-            height: 300px;
-            background: #00f7ff;
-            top: 10%;
-            left: 5%;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        .floating-2 {
-            width: 200px;
-            height: 200px;
-            background: #8b5cf6;
-            bottom: 10%;
-            right: 5%;
-            animation: float 10s ease-in-out infinite;
-        }
-        
-        .floating-3 {
-            width: 150px;
-            height: 150px;
-            background: #00f7ff;
-            top: 40%;
-            right: 20%;
-            animation: float 12s ease-in-out infinite;
-        }
-        
-        .logo-text {
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 2px;
-        }
-        
-        .spec-table {
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        
-        .spec-table th {
-            background: rgba(30, 41, 59, 0.7);
-            padding: 12px 16px;
-            text-align: left;
-        }
-        
-        .spec-table td {
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(129, 140, 153, 0.3);
-        }
-        
-        .spec-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .review-card {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 12px;
-            padding: 20px;
-        }
-        
-        .review-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .thumbnail {
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            opacity: 0.7;
-        }
-        
-        .thumbnail:hover, .thumbnail.active {
-            border-color: #00f7ff;
-            transform: scale(1.05);
-            opacity: 1;
-        }
-        
         .nav-btn {
             background: rgba(30, 41, 59, 0.7);
             border: 1px solid rgba(129, 140, 153, 0.3);
@@ -274,79 +233,90 @@
             transform: translateY(-2px);
         }
         
-        .quantity-btn {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(129, 140, 153, 0.3);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .nav-item {
             transition: all 0.3s ease;
         }
         
-        .quantity-btn:hover {
+        .nav-item:hover {
             background: rgba(0, 247, 255, 0.2);
             border-color: #00f7ff;
         }
         
-        /* Auto-slider styles */
-        .slider-container {
-            position: relative;
-            overflow: hidden;
+        .nav-item.active {
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
+            color: white;
         }
         
-        .slider-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
+        .status-low {
+            color: #f59e0b;
         }
         
-        .slider-item {
-            min-width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .status-empty {
+            color: #ef4444;
         }
         
-        .thumbnail-track {
-            display: flex;
-            gap: 1rem;
-            transition: transform 0.3s ease;
+        .status-normal {
+            color: #10b981;
         }
         
-        .thumbnail-container {
-            position: relative;
-            overflow: hidden;
-            padding: 0.5rem 0;
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
         }
         
-        .thumbnail-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(15, 23, 42, 0.8);
+        /* Custom scrollbar */
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .table-container::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+        }
+        
+        .table-container::-webkit-scrollbar-thumb {
+            background: #00f7ff;
+            border-radius: 4px;
+        }
+        
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #8b5cf6;
+        }
+        
+        /* Modal styles */
+        .modal {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(129, 140, 153, 0.3);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+        }
+        
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 50;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid rgba(129, 140, 153, 0.3);
+        }
+        
+        .close-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg);
+            color: #ef4444;
+        }
+        
+        .product-image {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #1e293b, #0f172a);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-        }
-        
-        .thumbnail-nav:hover {
-            background: rgba(0, 247, 255, 0.2);
-            border-color: #00f7ff;
-        }
-        
-        .thumbnail-prev {
-            left: -15px;
-        }
-        
-        .thumbnail-next {
-            right: -15px;
         }
     </style>
 </head>
@@ -356,397 +326,766 @@
     <div class="floating-element floating-2"></div>
     <div class="floating-element floating-3"></div>
     
-    <!-- Navigation Bar -->
-    <div class="bg-gray-900 bg-opacity-80 backdrop-blur-sm border-b border-gray-800 sticky top-0 z-30">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <h1 class="text-2xl md:text-3xl font-bold logo-text text-white glow-text">OPTIMUS PRIME</h1>
-                </div>
-                
-                <!-- Navigation Links -->
-                <div class="flex flex-wrap justify-center gap-2">
-                    <a href="index.html" class="nav-btn px-4 py-2 rounded-lg text-white">
-                        <i class="fas fa-home mr-1"></i> Home
-                    </a>
-                    <a href="dashboard.html" class="nav-btn px-4 py-2 rounded-lg text-white">
-                        <i class="fas fa-store mr-1"></i> Shop
-                    </a>
-                    <a href="about.html" class="nav-btn px-4 py-2 rounded-lg text-white">
-                        <i class="fas fa-info-circle mr-1"></i> About
-                    </a>
-                    <a href="contact.html" class="nav-btn px-4 py-2 rounded-lg text-white">
-                        <i class="fas fa-phone-alt mr-1"></i> Contact
-                    </a>
-                </div>
-                
-                <!-- User Actions -->
-                <div class="flex items-center space-x-3">
-                    <div class="search-container flex items-center px-4 py-2 bg-gray-800 bg-opacity-50 rounded-full">
-                        <i class="fas fa-search text-gray-400 mr-2"></i>
-                        <input type="text" placeholder="Search..." class="bg-transparent text-white focus:outline-none">
-                    </div>
-                    <a href="cart.html" class="nav-btn px-4 py-2 rounded-lg text-white">
-                        <i class="fas fa-shopping-cart mr-1"></i> Cart (3)
-                    </a>
-                </div>
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-70 z-40 hidden" onclick="toggleSidebar()"></div>
+    
+    <!-- Sidebar for Navigation -->
+    <div id="adminSidebar" class="sidebar fixed top-0 left-0 h-full w-64 z-50 transform -translate-x-full md:translate-x-0">
+        <div class="p-6 border-b border-gray-700">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold logo-text text-white glow-text">ADMIN PANEL</h2>
+                <button class="md:hidden text-white" onclick="toggleSidebar()">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
             </div>
+        </div>
+        
+        <div class="p-4">
+            <ul class="space-y-2">
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
+                        <i class="fas fa-home mr-3"></i> Dashboard
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white active">
+                        <i class="fas fa-box mr-3"></i> Products
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
+                        <i class="fas fa-users mr-3"></i> Customers
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white" onclick="toggleOrderSubmenu()">
+                        <i class="fas fa-shopping-cart mr-3"></i> Orders
+                        <i class="fas fa-chevron-down float-right mt-1 transition-transform" id="orderChevron"></i>
+                    </button>
+                    <ul class="ml-8 mt-2 space-y-2 hidden" id="orderSubmenu">
+                        <li>
+                            <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
+                                <i class="fas fa-list mr-2"></i> All Orders
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
+                                <i class="fas fa-clock mr-2"></i> Pending Orders
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
+                                <i class="fas fa-check-circle mr-2"></i> Successful Orders
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
+                                <i class="fas fa-times-circle mr-2"></i> Cancelled Orders
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
+                        <i class="fas fa-chart-line mr-3"></i> Analytics
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
+                        <i class="fas fa-cog mr-3"></i> Settings
+                    </button>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="absolute bottom-0 w-full p-4 border-t border-gray-700">
+            <button class="w-full py-3 rounded-lg text-white bg-gradient-to-r from-purple-600 to-cyan-500">
+                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+            </button>
         </div>
     </div>
     
-    <!-- Breadcrumb -->
-    <div class="container mx-auto px-4 py-4">
-        <nav class="text-gray-400">
-            <ol class="flex items-center space-x-2">
-                <li><a href="index.html" class="hover:text-neon transition">Home</a></li>
-                <li><i class="fas fa-chevron-right text-xs"></i></li>
-                <li><a href="dashboard.html" class="hover:text-neon transition">Products</a></li>
-                <li><i class="fas fa-chevron-right text-xs"></i></li>
-                <li class="text-neon">iPhone 15 Pro</li>
-            </ol>
-        </nav>
-    </div>
-    
-    <!-- Product Details Section -->
-    <div class="container mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <!-- Product Images with Auto-Slider -->
-            <div>
-                <!-- Main Product Image Slider -->
-                <div class="product-image neon-border mb-6 slider-container">
-                    <div class="slider-track" id="mainSlider">
-                        <div class="slider-item">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-64 h-64 flex items-center justify-center text-gray-500">
-                                <i class="fas fa-mobile-alt text-6xl"></i>
-                            </div>
+    <!-- Main Content -->
+    <div class="md:ml-64">
+        <!-- Top Navigation Bar -->
+        <div class="bg-gray-900 bg-opacity-80 backdrop-blur-sm border-b border-gray-800 sticky top-0 z-30">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <!-- Logo and Menu Button -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <h1 class="text-2xl md:text-3xl font-bold logo-text text-white glow-text">OPTIMUS PRIME</h1>
                         </div>
-                        <div class="slider-item">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-64 h-64 flex items-center justify-center text-gray-500">
-                                <i class="fas fa-mobile-alt text-6xl" style="transform: rotate(90deg);"></i>
-                            </div>
-                        </div>
-                        <div class="slider-item">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-64 h-64 flex items-center justify-center text-gray-500">
-                                <i class="fas fa-mobile-alt text-6xl" style="transform: rotate(180deg);"></i>
-                            </div>
-                        </div>
-                        <div class="slider-item">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-64 h-64 flex items-center justify-center text-gray-500">
-                                <i class="fas fa-mobile-alt text-6xl" style="transform: rotate(270deg);"></i>
-                            </div>
+                        <div class="flex items-center space-x-3">
+                            <button class="md:hidden mobile-menu-btn p-2 rounded-lg bg-gray-800 text-white" onclick="toggleSidebar()">
+                                <i class="fas fa-bars text-xl"></i>
+                            </button>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Thumbnail Slider -->
-                <div class="thumbnail-container neon-border rounded-lg p-2 relative">
-                    <div class="thumbnail-track" id="thumbnailTrack">
-                        <div class="thumbnail rounded-lg p-2 active" data-index="0">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-lg w-full h-20 flex items-center justify-center text-gray-500">
-                                <i class="fas fa-mobile-alt"></i>
-                            </div>
-                        </div>
-                        <div class="thumbnail rounded-lg p-2" data-index="1">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-lg w-full h-20 flex items-center justify-center text-gray-500">
-                                <i class="fas fa-mobile-alt" style="transform: rotate(90deg);"></i>
-                            </div>
-                        </div>
-                        <div class="thumbnail rounded-lg p-2" data-index="2">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-lg w-full h-20 flex items-center justify-center text-gray-500">
-                                <i class="fas fa-mobile-alt" style="transform: rotate(180deg);"></i>
-                            </div>
-                        </div>
-                        <div class="thumbnail rounded-lg p-2" data-index="3">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-lg w-full h-20 flex items-center justify-center text-gray-500">
-                                <i class="fas fa-mobile-alt" style="transform: rotate(270deg);"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="thumbnail-nav thumbnail-prev" id="thumbPrev">
-                        <i class="fas fa-chevron-left text-neon"></i>
-                    </div>
-                    <div class="thumbnail-nav thumbnail-next" id="thumbNext">
-                        <i class="fas fa-chevron-right text-neon"></i>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Product Info -->
-            <div>
-                <div class="mb-6">
-                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">iPhone 15 Pro</h1>
-                    <div class="flex items-center mb-4">
-                        <div class="flex text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <span class="text-gray-400 ml-2">(128 Reviews)</span>
-                    </div>
-                    <p class="text-gray-400 mb-6">The most advanced iPhone yet with revolutionary titanium design, A17 Pro chip, and enhanced camera system.</p>
                     
-                    <div class="flex items-center mb-8">
-                        <div class="text-3xl font-bold text-white mr-4">$1,199.00</div>
-                        <div class="price-tag line-through text-lg">$1,299.00</div>
-                        <div class="ml-4 px-3 py-1 bg-red-500 rounded-full text-white font-bold">SAVE $100</div>
-                    </div>
-                </div>
-                
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold text-white mb-4">Select Storage</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <button class="px-6 py-3 rounded-lg text-white bg-gradient-to-r from-purple-600 to-cyan-500">128GB</button>
-                        <button class="px-6 py-3 rounded-lg text-white nav-btn">256GB</button>
-                        <button class="px-6 py-3 rounded-lg text-white nav-btn">512GB</button>
-                        <button class="px-6 py-3 rounded-lg text-white nav-btn">1TB</button>
-                    </div>
-                </div>
-                
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold text-white mb-4">Select Color</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <button class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 border-2 border-white"></button>
-                        <button class="w-12 h-12 rounded-full bg-gradient-to-r from-gray-400 to-gray-600 border-2 border-white"></button>
-                        <button class="w-12 h-12 rounded-full bg-gradient-to-r from-white to-gray-200 border-2 border-gray-300"></button>
-                        <button class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 border-2 border-white"></button>
-                    </div>
-                </div>
-                
-                <div class="flex items-center mb-8">
-                    <div class="flex items-center mr-6">
-                        <button class="quantity-btn rounded-l">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <input type="text" value="1" class="w-16 text-center bg-gray-800 text-white py-2" readonly>
-                        <button class="quantity-btn rounded-r">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                    <button class="btn-primary px-8 py-3 rounded-lg text-white font-bold flex-1">
-                        <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
-                    </button>
-                </div>
-                
-                <div class="flex space-x-4 mb-8">
-                    <button class="btn-secondary px-6 py-3 rounded-lg text-white font-bold flex-1">
-                        <i class="fas fa-heart mr-2"></i> Wishlist
-                    </button>
-                    <button class="btn-secondary px-6 py-3 rounded-lg text-white font-bold flex-1">
-                        <i class="fas fa-share-alt mr-2"></i> Share
-                    </button>
-                </div>
-                
-                <div class="border-t border-gray-700 pt-6">
-                    <div class="flex items-center text-gray-400 mb-3">
-                        <i class="fas fa-truck mr-3 text-neon"></i>
-                        <span>Free shipping on orders over $50</span>
-                    </div>
-                    <div class="flex items-center text-gray-400 mb-3">
-                        <i class="fas fa-undo mr-3 text-neon"></i>
-                        <span>30-day return policy</span>
-                    </div>
-                    <div class="flex items-center text-gray-400">
-                        <i class="fas fa-shield-alt mr-3 text-neon"></i>
-                        <span>2-year warranty included</span>
+                    <!-- Admin Info -->
+                    <div class="flex items-center space-x-4">
+                        <div class="text-right hidden md:block">
+                            <p class="text-white font-bold">Admin User</p>
+                            <p class="text-gray-400 text-sm">Administrator</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
+                            <i class="fas fa-user text-neon"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Product Details Tabs -->
-        <div class="mt-16">
-            <div class="border-b border-gray-700 mb-8">
-                <nav class="flex flex-wrap">
-                    <button class="px-6 py-3 text-white font-bold border-b-2 border-neon">Description</button>
-                    <button class="px-6 py-3 text-gray-400 hover:text-white">Specifications</button>
-                    <button class="px-6 py-3 text-gray-400 hover:text-white">Reviews (128)</button>
-                    <button class="px-6 py-3 text-gray-400 hover:text-white">FAQs</button>
-                </nav>
+        <!-- Dashboard Content -->
+        <div class="container mx-auto px-4 py-8">
+            <!-- Page Title -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold section-title text-white mb-2 glow-text">PRODUCT MANAGEMENT</h2>
+                <p class="text-gray-400">Manage all products in your inventory</p>
             </div>
             
-            <div class="product-card neon-border p-8">
-                <h2 class="text-2xl font-bold text-white mb-6">Product Description</h2>
-                <p class="text-gray-300 mb-6">
-                    The iPhone 15 Pro represents the pinnacle of smartphone technology. Crafted from aerospace-grade titanium, 
-                    it's both lighter and more durable than ever before. The revolutionary A17 Pro chip delivers unprecedented 
-                    performance for gaming, photography, and productivity.
-                </p>
-                <p class="text-gray-300 mb-6">
-                    Featuring a stunning 6.1-inch Super Retina XDR display with ProMotion technology, the iPhone 15 Pro 
-                    offers an immersive visual experience. The advanced camera system includes a 48MP Main camera, 12MP 
-                    Ultra Wide camera, and 12MP Telephoto camera with 3x optical zoom.
-                </p>
-                <p class="text-gray-300 mb-6">
-                    With USB-C for the first time, the iPhone 15 Pro offers faster data transfer speeds and compatibility 
-                    with a wider range of accessories. The Action button replaces the traditional Ring/Silent switch, 
-                    providing customizable shortcuts for your most-used features.
-                </p>
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">Total Products</p>
+                            <p class="text-3xl font-bold text-white">142</p>
+                        </div>
+                        <div class="text-3xl text-neon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                    </div>
+                </div>
                 
-                <h3 class="text-xl font-bold text-white mb-4 mt-8">Key Features</h3>
-                <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300">
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-neon mt-1 mr-3"></i>
-                        <span>A17 Pro chip with 6-core CPU and 6-core GPU</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-neon mt-1 mr-3"></i>
-                        <span>48MP Main camera with 2x Telephoto option</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-neon mt-1 mr-3"></i>
-                        <span>Titanium design with textured matte glass back</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-neon mt-1 mr-3"></i>
-                        <span>USB-C connector with up to 10Gbps transfer speeds</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-neon mt-1 mr-3"></i>
-                        <span>Dynamic Island for intuitive interactions</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-neon mt-1 mr-3"></i>
-                        <span>Up to 29 hours of video playback</span>
-                    </li>
-                </ul>
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">Low Stock (<10)</p>
+                            <p class="text-3xl font-bold text-white">8</p>
+                        </div>
+                        <div class="text-3xl text-yellow-500">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">Out of Stock</p>
+                            <p class="text-3xl font-bold text-white">3</p>
+                        </div>
+                        <div class="text-3xl text-red-500">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">Categories</p>
+                            <p class="text-3xl font-bold text-white">12</p>
+                        </div>
+                        <div class="text-3xl text-purple-500">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Table -->
+            <div class="admin-card neon-border p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                    <h3 class="text-xl font-bold text-white mb-4 md:mb-0">Product List</h3>
+                    <div class="flex space-x-3">
+                        <div class="relative">
+                            <input type="text" placeholder="Search products..." class="input-field px-4 py-2 rounded-lg text-white focus:outline-none pl-10">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                        <button class="btn-secondary px-4 py-2 rounded-lg text-white">
+                            <i class="fas fa-filter mr-2"></i> Filter
+                        </button>
+                        <button class="btn-primary px-4 py-2 rounded-lg text-white" onclick="openAddModal()">
+                            <i class="fas fa-plus mr-2"></i> Add Product
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-gray-700">
+                                <th class="py-3 text-left text-gray-400">ID</th>
+                                <th class="py-3 text-left text-gray-400">Image</th>
+                                <th class="py-3 text-left text-gray-400">Name</th>
+                                <th class="py-3 text-left text-gray-400">Slug</th>
+                                <th class="py-3 text-left text-gray-400">Category</th>
+                                <th class="py-3 text-left text-gray-400">Stock</th>
+                                <th class="py-3 text-left text-gray-400">Price</th>
+                                <th class="py-3 text-left text-gray-400">Status</th>
+                                <th class="py-3 text-left text-gray-400">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Product 1 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#PRD-001</td>
+                                <td class="py-4">
+                                    <div class="product-image">
+                                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-12 h-12 flex items-center justify-center text-gray-500">
+                                            <i class="fas fa-mobile-alt"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">iPhone 15 Pro</td>
+                                <td class="py-4 text-gray-400">iphone-15-pro</td>
+                                <td class="py-4 text-gray-400">Smartphones</td>
+                                <td class="py-4">
+                                    <span class="status-low">
+                                        <i class="fas fa-exclamation-triangle mr-1"></i> 5
+                                    </span>
+                                </td>
+                                <td class="py-4 text-white">$1,199.00</td>
+                                <td class="py-4">
+                                    <span class="status-normal">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('PRD-001', 'iPhone 15 Pro', 'iphone-15-pro', 'Smartphones', 5, 1199.00)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteProduct('PRD-001')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Product 2 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#PRD-002</td>
+                                <td class="py-4">
+                                    <div class="product-image">
+                                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-12 h-12 flex items-center justify-center text-gray-500">
+                                            <i class="fas fa-headphones"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">Sony WH-1000XM5</td>
+                                <td class="py-4 text-gray-400">sony-wh-1000xm5</td>
+                                <td class="py-4 text-gray-400">Audio</td>
+                                <td class="py-4">
+                                    <span class="status-normal">
+                                        <i class="fas fa-check-circle mr-1"></i> 42
+                                    </span>
+                                </td>
+                                <td class="py-4 text-white">$349.00</td>
+                                <td class="py-4">
+                                    <span class="status-normal">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('PRD-002', 'Sony WH-1000XM5', 'sony-wh-1000xm5', 'Audio', 42, 349.00)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteProduct('PRD-002')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Product 3 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#PRD-003</td>
+                                <td class="py-4">
+                                    <div class="product-image">
+                                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-12 h-12 flex items-center justify-center text-gray-500">
+                                            <i class="fas fa-gamepad"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">PlayStation 5</td>
+                                <td class="py-4 text-gray-400">playstation-5</td>
+                                <td class="py-4 text-gray-400">Gaming</td>
+                                <td class="py-4">
+                                    <span class="status-empty">
+                                        <i class="fas fa-times-circle mr-1"></i> 0
+                                    </span>
+                                </td>
+                                <td class="py-4 text-white">$499.00</td>
+                                <td class="py-4">
+                                    <span class="status-empty">
+                                        <i class="fas fa-times-circle mr-1"></i> Out of Stock
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('PRD-003', 'PlayStation 5', 'playstation-5', 'Gaming', 0, 499.00)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteProduct('PRD-003')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Product 4 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#PRD-004</td>
+                                <td class="py-4">
+                                    <div class="product-image">
+                                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-12 h-12 flex items-center justify-center text-gray-500">
+                                            <i class="fas fa-laptop"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">MacBook Air M2</td>
+                                <td class="py-4 text-gray-400">macbook-air-m2</td>
+                                <td class="py-4 text-gray-400">Computers</td>
+                                <td class="py-4">
+                                    <span class="status-low">
+                                        <i class="fas fa-exclamation-triangle mr-1"></i> 3
+                                    </span>
+                                </td>
+                                <td class="py-4 text-white">$1,099.00</td>
+                                <td class="py-4">
+                                    <span class="status-normal">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('PRD-004', 'MacBook Air M2', 'macbook-air-m2', 'Computers', 3, 1099.00)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteProduct('PRD-004')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Product 5 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#PRD-005</td>
+                                <td class="py-4">
+                                    <div class="product-image">
+                                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-12 h-12 flex items-center justify-center text-gray-500">
+                                            <i class="fas fa-tablet-alt"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">Samsung Galaxy Tab S9</td>
+                                <td class="py-4 text-gray-400">samsung-galaxy-tab-s9</td>
+                                <td class="py-4 text-gray-400">Tablets</td>
+                                <td class="py-4">
+                                    <span class="status-normal">
+                                        <i class="fas fa-check-circle mr-1"></i> 18
+                                    </span>
+                                </td>
+                                <td class="py-4 text-white">$899.00</td>
+                                <td class="py-4">
+                                    <span class="status-normal">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('PRD-005', 'Samsung Galaxy Tab S9', 'samsung-galaxy-tab-s9', 'Tablets', 18, 899.00)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteProduct('PRD-005')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Product 6 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#PRD-006</td>
+                                <td class="py-4">
+                                    <div class="product-image">
+                                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-12 h-12 flex items-center justify-center text-gray-500">
+                                            <i class="fas fa-camera"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">Sony Alpha 7 IV</td>
+                                <td class="py-4 text-gray-400">sony-alpha-7-iv</td>
+                                <td class="py-4 text-gray-400">Cameras</td>
+                                <td class="py-4">
+                                    <span class="status-empty">
+                                        <i class="fas fa-times-circle mr-1"></i> 0
+                                    </span>
+                                </td>
+                                <td class="py-4 text-white">$2,499.00</td>
+                                <td class="py-4">
+                                    <span class="status-empty">
+                                        <i class="fas fa-times-circle mr-1"></i> Out of Stock
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('PRD-006', 'Sony Alpha 7 IV', 'sony-alpha-7-iv', 'Cameras', 0, 2499.00)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteProduct('PRD-006')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Product 7 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#PRD-007</td>
+                                <td class="py-4">
+                                    <div class="product-image">
+                                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-12 h-12 flex items-center justify-center text-gray-500">
+                                            <i class="fas fa-mobile-alt"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">Google Pixel 8</td>
+                                <td class="py-4 text-gray-400">google-pixel-8</td>
+                                <td class="py-4 text-gray-400">Smartphones</td>
+                                <td class="py-4">
+                                    <span class="status-low">
+                                        <i class="fas fa-exclamation-triangle mr-1"></i> 7
+                                    </span>
+                                </td>
+                                <td class="py-4 text-white">$799.00</td>
+                                <td class="py-4">
+                                    <span class="status-normal">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('PRD-007', 'Google Pixel 8', 'google-pixel-8', 'Smartphones', 7, 799.00)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteProduct('PRD-007')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Product 8 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#PRD-008</td>
+                                <td class="py-4">
+                                    <div class="product-image">
+                                        <div class="bg-gray-800 border-2 border-dashed rounded-xl w-12 h-12 flex items-center justify-center text-gray-500">
+                                            <i class="fas fa-watch"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">Apple Watch Series 9</td>
+                                <td class="py-4 text-gray-400">apple-watch-series-9</td>
+                                <td class="py-4 text-gray-400">Wearables</td>
+                                <td class="py-4">
+                                    <span class="status-normal">
+                                        <i class="fas fa-check-circle mr-1"></i> 24
+                                    </span>
+                                </td>
+                                <td class="py-4 text-white">$399.00</td>
+                                <td class="py-4">
+                                    <span class="status-normal">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('PRD-008', 'Apple Watch Series 9', 'apple-watch-series-9', 'Wearables', 24, 399.00)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteProduct('PRD-008')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="flex justify-between items-center mt-6">
+                    <p class="text-gray-400">Showing 1 to 8 of 142 products</p>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">1</button>
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">2</button>
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">3</button>
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <!-- Related Products -->
-        <div class="mt-16">
-            <h2 class="text-3xl font-bold text-white mb-8">You May Also Like</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Product 1 -->
-                <div class="product-card neon-border">
-                    <div class="p-4">
-                        <div class="product-image mb-4">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-24 h-24 mx-auto flex items-center justify-center text-gray-500">
-                                <i class="fas fa-mobile-alt text-3xl"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-lg font-bold text-white text-center mb-2">iPhone 15</h3>
-                        <div class="flex justify-between items-center">
-                            <span class="text-neon font-bold">$999.00</span>
-                            <button class="btn-secondary px-3 py-1 rounded text-sm">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
+        <!-- Footer -->
+        <footer class="mt-16 w-full bg-gray-900 bg-opacity-50 border-t border-gray-800">
+            <div class="container mx-auto px-4 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold logo-text text-white mb-4 glow-text">OPTIMUS PRIME</h3>
+                        <p class="text-gray-400">
+                            Admin Dashboard
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Dashboard</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Orders</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Products</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Customers</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Customer Service</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">FAQs</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Shipping Policy</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Returns & Refunds</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Contact Info</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                                <span>123 Tech Street, Digital City</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone mr-2"></i>
+                                <span>+1 (555) 123-4567</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope mr-2"></i>
+                                <span>admin@optimusprime.com</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                
-                <!-- Product 2 -->
-                <div class="product-card neon-border">
-                    <div class="p-4">
-                        <div class="product-image mb-4">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-24 h-24 mx-auto flex items-center justify-center text-gray-500">
-                                <i class="fas fa-tablet-alt text-3xl"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-lg font-bold text-white text-center mb-2">iPad Pro</h3>
-                        <div class="flex justify-between items-center">
-                            <span class="text-neon font-bold">$1,099.00</span>
-                            <button class="btn-secondary px-3 py-1 rounded text-sm">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 3 -->
-                <div class="product-card neon-border">
-                    <div class="p-4">
-                        <div class="product-image mb-4">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-24 h-24 mx-auto flex items-center justify-center text-gray-500">
-                                <i class="fas fa-headphones text-3xl"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-lg font-bold text-white text-center mb-2">AirPods Pro</h3>
-                        <div class="flex justify-between items-center">
-                            <span class="text-neon font-bold">$249.00</span>
-                            <button class="btn-secondary px-3 py-1 rounded text-sm">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 4 -->
-                <div class="product-card neon-border">
-                    <div class="p-4">
-                        <div class="product-image mb-4">
-                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-24 h-24 mx-auto flex items-center justify-center text-gray-500">
-                                <i class="fas fa-watch text-3xl"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-lg font-bold text-white text-center mb-2">Apple Watch</h3>
-                        <div class="flex justify-between items-center">
-                            <span class="text-neon font-bold">$399.00</span>
-                            <button class="btn-secondary px-3 py-1 rounded text-sm">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
+                <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500">
+                    <p>© 2023 OPTIMUS PRIME Admin Dashboard. All rights reserved.</p>
                 </div>
             </div>
-        </div>
+        </footer>
     </div>
     
-    <!-- Footer -->
-    <footer class="mt-16 w-full bg-gray-900 bg-opacity-50 border-t border-gray-800">
-        <div class="container mx-auto px-4 py-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold logo-text text-white mb-4 glow-text">OPTIMUS PRIME</h3>
-                    <p class="text-gray-400">
-                        Your premier destination for the latest mobile technology and gaming accessories.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-400 hover:text-neon transition">Home</a></li>
-                        <li><a href="dashboard.html" class="text-gray-400 hover:text-neon transition">Shop</a></li>
-                        <li><a href="about.html" class="text-gray-400 hover:text-neon transition">About Us</a></li>
-                        <li><a href="contact.html" class="text-gray-400 hover:text-neon transition">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold text-white mb-4">Customer Service</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-neon transition">FAQs</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-neon transition">Shipping Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-neon transition">Returns & Refunds</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-neon transition">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold text-white mb-4">Contact Info</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
-                            <span>123 Tech Street, Digital City</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-2"></i>
-                            <span>+1 (555) 123-4567</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-2"></i>
-                            <span>info@optimusprime.com</span>
-                        </li>
-                    </ul>
-                </div>
+    <!-- Add/Edit Product Modal -->
+    <div id="productModal" class="modal-overlay fixed inset-0 flex items-center justify-center hidden">
+        <div class="modal w-full max-w-2xl p-6">
+            <div class="modal-header flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold section-title text-white">Add Product</h3>
+                <button class="close-btn text-gray-400 hover:text-white text-2xl" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500">
-                <p>© 2023 OPTIMUS PRIME Mobile Shop. All rights reserved.</p>
-            </div>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-300 mb-2">Product Name *</label>
+                        <input type="text" id="productName" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Enter product name" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2">Product Slug *</label>
+                        <input type="text" id="productSlug" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Enter product slug" required>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-300 mb-2">Category *</label>
+                        <select id="productCategory" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" required>
+                            <option value="">Select category</option>
+                            <option value="smartphones">Smartphones</option>
+                            <option value="tablets">Tablets</option>
+                            <option value="audio">Audio</option>
+                            <option value="computers">Computers</option>
+                            <option value="gaming">Gaming</option>
+                            <option value="wearables">Wearables</option>
+                            <option value="cameras">Cameras</option>
+                            <option value="accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2">Stock Quantity *</label>
+                        <input type="number" id="productStock" min="0" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Enter stock quantity" required>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-300 mb-2">Price ($) *</label>
+                        <input type="number" id="productPrice" min="0" step="0.01" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Enter price" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2">Status *</label>
+                        <select id="productStatus" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-300 mb-2">Description</label>
+                    <textarea id="productDescription" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" rows="3" placeholder="Enter product description"></textarea>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-300 mb-2">Product Image</label>
+                    <div class="flex items-center">
+                        <div class="product-image mr-4">
+                            <div class="bg-gray-800 border-2 border-dashed rounded-xl w-16 h-16 flex items-center justify-center text-gray-500">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="file" id="productImage" class="hidden">
+                            <button type="button" class="btn-secondary px-4 py-2 rounded-lg text-white" onclick="document.getElementById('productImage').click()">
+                                <i class="fas fa-upload mr-2"></i> Upload Image
+                            </button>
+                            <p class="text-gray-400 text-sm mt-2">Recommended: 300x300px</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button type="button" class="btn-secondary px-6 py-3 rounded-lg text-white font-bold" onclick="closeModal()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn-primary px-6 py-3 rounded-lg text-white font-bold">
+                        <i class="fas fa-save mr-2"></i> Save Product
+                    </button>
+                </div>
+            </form>
         </div>
-    </footer>
+    </div>
     
     <script>
+        // Toggle sidebar on mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('adminSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('animate-sidebar-in');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.remove('animate-sidebar-in');
+                sidebar.classList.add('animate-sidebar-out');
+                overlay.classList.add('hidden');
+                
+                // Reset animation classes after animation completes
+                setTimeout(() => {
+                    sidebar.classList.remove('animate-sidebar-out');
+                    sidebar.classList.add('-translate-x-full');
+                }, 300);
+            }
+        }
+        
+        // Toggle order submenu
+        function toggleOrderSubmenu() {
+            const submenu = document.getElementById('orderSubmenu');
+            const chevron = document.getElementById('orderChevron');
+            
+            if (submenu.classList.contains('hidden')) {
+                submenu.classList.remove('hidden');
+                chevron.classList.add('rotate-180');
+            } else {
+                submenu.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
+            }
+        }
+        
+        // Delete product function
+        function deleteProduct(productId) {
+            if (confirm(`Are you sure you want to delete product ${productId}?`)) {
+                // In a real application, this would make an API call to delete the product
+                alert(`Product ${productId} has been deleted.`);
+                // Here you would remove the row from the table
+            }
+        }
+        
+        // Open modal for adding product
+        function openAddModal() {
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = '';
+            document.querySelector('.modal h3').textContent = 'Add Product';
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+        
+        // Open modal for editing product
+        function openEditModal(id, name, slug, category, stock, price) {
+            document.getElementById('productId').value = id;
+            document.getElementById('productName').value = name;
+            document.getElementById('productSlug').value = slug;
+            document.getElementById('productCategory').value = category.toLowerCase();
+            document.getElementById('productStock').value = stock;
+            document.getElementById('productPrice').value = price;
+            document.getElementById('productStatus').value = 'active';
+            document.getElementById('productDescription').value = `High-quality ${name} with premium features.`;
+            document.querySelector('.modal h3').textContent = 'Edit Product';
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+        
+        // Close modal
+        function closeModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+        
+        // Handle form submission
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const id = document.getElementById('productId').value;
+            const name = document.getElementById('productName').value;
+            const slug = document.getElementById('productSlug').value;
+            const category = document.getElementById('productCategory').value;
+            const stock = document.getElementById('productStock').value;
+            const price = document.getElementById('productPrice').value;
+            const status = document.getElementById('productStatus').value;
+            
+            if (id) {
+                // Editing existing product
+                alert(`Product ${id} updated successfully!\nName: ${name}\nStock: ${stock}\nPrice: $${price}`);
+            } else {
+                // Adding new product
+                alert(`New product added successfully!\nName: ${name}\nStock: ${stock}\nPrice: $${price}`);
+            }
+            
+            // Close modal
+            closeModal();
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Navigation item active state
+        document.querySelectorAll('.nav-item').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+            });
+        });
+        
         // Add pulse animation to buttons on hover
         document.querySelectorAll('.btn-primary, .btn-secondary, .nav-btn').forEach(button => {
             button.addEventListener('mouseenter', function() {
@@ -756,111 +1095,6 @@
             button.addEventListener('mouseleave', function() {
                 this.classList.remove('pulse-glow');
             });
-        });
-        
-        // Quantity buttons functionality
-        document.querySelectorAll('.quantity-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const input = this.parentElement.querySelector('input');
-                let value = parseInt(input.value);
-                
-                if (this.querySelector('.fa-plus')) {
-                    value++;
-                } else if (this.querySelector('.fa-minus')) {
-                    value = value > 1 ? value - 1 : 1;
-                }
-                
-                input.value = value;
-            });
-        });
-        
-        // Tab navigation
-        document.querySelectorAll('nav button').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('nav button').forEach(t => {
-                    t.classList.remove('text-white', 'border-neon');
-                    t.classList.add('text-gray-400');
-                });
-                this.classList.remove('text-gray-400');
-                this.classList.add('text-white', 'border-neon');
-            });
-        });
-        
-        // Auto-slider functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const mainSlider = document.getElementById('mainSlider');
-            const thumbnailTrack = document.getElementById('thumbnailTrack');
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            const thumbPrev = document.getElementById('thumbPrev');
-            const thumbNext = document.getElementById('thumbNext');
-            
-            let currentIndex = 0;
-            const totalSlides = thumbnails.length;
-            const slideWidth = 100; // Percentage
-            const thumbWidth = 120; // Adjust based on thumbnail width + gap
-            const visibleThumbs = 4; // Number of thumbnails visible at once
-            
-            // Auto slide main image
-            function autoSlide() {
-                currentIndex = (currentIndex + 1) % totalSlides;
-                updateSlider();
-                updateThumbnails();
-            }
-            
-            // Update main slider position
-            function updateSlider() {
-                mainSlider.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
-            }
-            
-            // Update thumbnail active state and track position
-            function updateThumbnails() {
-                // Update active thumbnail
-                thumbnails.forEach((thumb, index) => {
-                    if (index === currentIndex) {
-                        thumb.classList.add('active');
-                        thumb.style.opacity = '1';
-                    } else {
-                        thumb.classList.remove('active');
-                        thumb.style.opacity = '0.7';
-                    }
-                });
-                
-                // Move thumbnail track to keep active thumbnail in view
-                const trackPosition = Math.max(0, Math.min(
-                    currentIndex - Math.floor(visibleThumbs / 2),
-                    totalSlides - visibleThumbs
-                ));
-                thumbnailTrack.style.transform = `translateX(-${trackPosition * thumbWidth}px)`;
-            }
-            
-            // Thumbnail click event
-            thumbnails.forEach((thumb, index) => {
-                thumb.addEventListener('click', () => {
-                    currentIndex = index;
-                    updateSlider();
-                    updateThumbnails();
-                });
-            });
-            
-            // Thumbnail navigation
-            thumbPrev.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-                updateSlider();
-                updateThumbnails();
-            });
-            
-            thumbNext.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % totalSlides;
-                updateSlider();
-                updateThumbnails();
-            });
-            
-            // Start auto sliding
-            setInterval(autoSlide, 3000); // Change slide every 3 seconds
-            
-            // Initialize
-            updateSlider();
-            updateThumbnails();
         });
     </script>
 </body>
