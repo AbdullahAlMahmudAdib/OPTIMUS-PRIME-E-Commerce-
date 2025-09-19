@@ -1,10 +1,10 @@
-<!-- Save as cancelledorder.html -->
+<!-- Save as customer.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPTIMUS PRIME - Cancelled Orders</title>
+    <title>OPTIMUS PRIME - Customer Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -125,7 +125,7 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(60px);
-            opacity: 0.4;
+            opacity: 0.6;
             z-index: -1;
         }
         
@@ -161,6 +161,66 @@
             letter-spacing: 2px;
         }
         
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .input-field {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #00f7ff;
+            box-shadow: 0 0 0 3px rgba(0, 247, 255, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.3);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20px;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+        }
+        
+        .btn-primary:hover::after {
+            left: 120%;
+        }
+        
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 247, 255, 0.2);
+            border-color: #00f7ff;
+            transform: translateY(-2px);
+        }
+        
         .nav-item {
             transition: all 0.3s ease;
         }
@@ -168,23 +228,12 @@
         .nav-item:hover {
             background: rgba(0, 247, 255, 0.2);
             border-color: #00f7ff;
+            transform: translateY(-2px);
         }
         
         .nav-item.active {
             background: linear-gradient(45deg, #00f7ff, #8b5cf6);
             color: white;
-        }
-        
-        .status-pending {
-            color: #f59e0b;
-        }
-        
-        .status-success {
-            color: #10b981;
-        }
-        
-        .status-cancelled {
-            color: #ef4444;
         }
         
         .table-container {
@@ -210,56 +259,37 @@
             background: #8b5cf6;
         }
         
-        .btn-primary {
-            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.3);
-        }
-        
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-        
-        .btn-secondary {
-            background: rgba(30, 41, 59, 0.7);
+        /* Modal styles */
+        .modal {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(129, 140, 153, 0.3);
+        }
+        
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 50;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid rgba(129, 140, 153, 0.3);
+        }
+        
+        .close-btn {
             transition: all 0.3s ease;
         }
         
-        .btn-secondary:hover {
-            background: rgba(0, 247, 255, 0.2);
-            border-color: #00f7ff;
-            transform: translateY(-2px);
-        }
-        
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-        
-        .status-pending-badge {
-            background: rgba(245, 158, 11, 0.2);
-            color: #f59e0b;
-            border: 1px solid #f59e0b;
-        }
-        
-        .status-success-badge {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            border: 1px solid #10b981;
-        }
-        
-        .status-cancelled-badge {
-            background: rgba(239, 68, 68, 0.2);
+        .close-btn:hover {
+            transform: rotate(90deg);
             color: #ef4444;
-            border: 1px solid #ef4444;
+        }
+        
+        /* Fix for navigation links */
+        .nav-link {
+            display: block;
+            width: 100%;
         }
     </style>
 </head>
@@ -286,22 +316,22 @@
         <div class="p-4">
             <ul class="space-y-2">
                 <li>
-                    <a href="adminDashboard.html">
+                    <a href="adminDashboard.html" class="nav-link">
                         <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
                             <i class="fas fa-home mr-3"></i> Dashboard
                         </button>
                     </a>
                 </li>
                 <li>
-                    <a href="product.html">
+                    <a href="product.html" class="nav-link">
                         <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
                             <i class="fas fa-box mr-3"></i> Products
                         </button>
                     </a>
                 </li>
                 <li>
-                    <a href="customer.html">
-                        <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
+                    <a href="customer.html" class="nav-link">
+                        <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white active">
                             <i class="fas fa-users mr-3"></i> Customers
                         </button>
                     </a>
@@ -313,28 +343,28 @@
                     </button>
                     <ul class="ml-8 mt-2 space-y-2 hidden" id="orderSubmenu">
                         <li>
-                            <a href="allorder.html">
+                            <a href="allorder.html" class="nav-link">
                                 <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
                                     <i class="fas fa-list mr-2"></i> All Orders
                                 </button>
                             </a>
                         </li>
                         <li>
-                            <a href="pendingOrder.html">
+                            <a href="pendingOrder.html" class="nav-link">
                                 <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
                                     <i class="fas fa-clock mr-2"></i> Pending Orders
                                 </button>
                             </a>
                         </li>
                         <li>
-                            <a href="successfulorder.html">
+                            <a href="successfulorder.html" class="nav-link">
                                 <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
                                     <i class="fas fa-check-circle mr-2"></i> Successful Orders
                                 </button>
                             </a>
                         </li>
                         <li>
-                            <a href="cancelledorder.html">
+                            <a href="cancelledorder.html" class="nav-link">
                                 <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
                                     <i class="fas fa-times-circle mr-2"></i> Cancelled Orders
                                 </button>
@@ -343,14 +373,14 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="analytics.html">
+                    <a href="analytics.html" class="nav-link">
                         <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
                             <i class="fas fa-chart-line mr-3"></i> Analytics
                         </button>
                     </a>
                 </li>
                 <li>
-                    <a href="settings.html">
+                    <a href="settings.html" class="nav-link">
                         <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
                             <i class="fas fa-cog mr-3"></i> Settings
                         </button>
@@ -360,7 +390,7 @@
         </div>
         
         <div class="absolute bottom-0 w-full p-4 border-t border-gray-700">
-            <a href="signup.html">
+            <a href="signup.html" class="nav-link">
                 <button class="w-full py-3 rounded-lg text-white bg-gradient-to-r from-purple-600 to-cyan-500">
                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
                 </button>
@@ -404,20 +434,20 @@
         <div class="container mx-auto px-4 py-8">
             <!-- Page Title -->
             <div class="mb-8">
-                <h2 class="text-3xl font-bold text-white mb-2">Cancelled Orders</h2>
-                <p class="text-gray-400">Manage cancelled orders</p>
+                <h2 class="text-3xl font-bold section-title text-white mb-2 glow-text">CUSTOMER MANAGEMENT</h2>
+                <p class="text-gray-400">Manage all customer accounts and information</p>
             </div>
             
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <div class="admin-card neon-border p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-400">Total Cancelled</p>
-                            <p class="text-3xl font-bold text-white">10</p>
+                            <p class="text-gray-400">Total Customers</p>
+                            <p class="text-3xl font-bold text-white">1,248</p>
                         </div>
-                        <div class="text-3xl text-red-500">
-                            <i class="fas fa-times-circle"></i>
+                        <div class="text-3xl text-neon">
+                            <i class="fas fa-users"></i>
                         </div>
                     </div>
                 </div>
@@ -425,11 +455,11 @@
                 <div class="admin-card neon-border p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-400">Customer Request</p>
-                            <p class="text-3xl font-bold text-white">6</p>
+                            <p class="text-gray-400">Active</p>
+                            <p class="text-3xl font-bold text-white">1,124</p>
                         </div>
-                        <div class="text-3xl text-orange-500">
-                            <i class="fas fa-user-times"></i>
+                        <div class="text-3xl text-green-500">
+                            <i class="fas fa-user-check"></i>
                         </div>
                     </div>
                 </div>
@@ -437,26 +467,42 @@
                 <div class="admin-card neon-border p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-400">Payment Failed</p>
-                            <p class="text-3xl font-bold text-white">4</p>
+                            <p class="text-gray-400">Inactive</p>
+                            <p class="text-3xl font-bold text-white">124</p>
                         </div>
-                        <div class="text-3xl text-rose-500">
-                            <i class="fas fa-credit-card"></i>
+                        <div class="text-3xl text-yellow-500">
+                            <i class="fas fa-user-clock"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">VIP Members</p>
+                            <p class="text-3xl font-bold text-white">86</p>
+                        </div>
+                        <div class="text-3xl text-purple-500">
+                            <i class="fas fa-crown"></i>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Orders Table -->
+            <!-- Customer Table -->
             <div class="admin-card neon-border p-6">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                    <h3 class="text-xl font-bold text-white mb-4 md:mb-0">Cancelled Orders</h3>
+                    <h3 class="text-xl font-bold text-white mb-4 md:mb-0">Customer List</h3>
                     <div class="flex space-x-3">
-                        <button class="px-4 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-600 transition">
+                        <div class="relative">
+                            <input type="text" placeholder="Search customers..." class="input-field px-4 py-2 rounded-lg text-white focus:outline-none pl-10">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                        <button class="btn-secondary px-4 py-2 rounded-lg text-white" onclick="openAddModal()">
                             <i class="fas fa-filter mr-2"></i> Filter
                         </button>
-                        <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-500 text-white hover:from-purple-700 hover:to-cyan-600 transition">
-                            <i class="fas fa-sync-alt mr-2"></i> Refresh
+                        <button class="btn-primary px-4 py-2 rounded-lg text-white" onclick="openAddModal()">
+                            <i class="fas fa-plus mr-2"></i> Add Customer
                         </button>
                     </div>
                 </div>
@@ -465,112 +511,111 @@
                     <table class="w-full">
                         <thead>
                             <tr class="border-b border-gray-700">
-                                <th class="py-3 text-left text-gray-400">Order ID</th>
-                                <th class="py-3 text-left text-gray-400">Customer</th>
-                                <th class="py-3 text-left text-gray-400">Date</th>
-                                <th class="py-3 text-left text-gray-400">Items</th>
-                                <th class="py-3 text-left text-gray-400">Total</th>
-                                <th class="py-3 text-left text-gray-400">Reason</th>
+                                <th class="py-3 text-left text-gray-400">ID</th>
+                                <th class="py-3 text-left text-gray-400">Name</th>
+                                <th class="py-3 text-left text-gray-400">Email</th>
+                                <th class="py-3 text-left text-gray-400">Total Orders</th>
+                                <th class="py-3 text-left text-gray-400">Status</th>
                                 <th class="py-3 text-left text-gray-400">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- Customer 1 -->
                             <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-7298</td>
+                                <td class="py-4 text-white">#CUS-001</td>
+                                <td class="py-4 text-gray-300">Alex Johnson</td>
+                                <td class="py-4 text-gray-400">alex.johnson@example.com</td>
+                                <td class="py-4 text-white">24</td>
+                                <td class="py-4">
+                                    <span class="text-green-500">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('CUS-001', 'Alex Johnson', 'alex.johnson@example.com')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteCustomer('CUS-001')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Customer 2 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#CUS-002</td>
+                                <td class="py-4 text-gray-300">Sarah Williams</td>
+                                <td class="py-4 text-gray-400">sarah.w@example.com</td>
+                                <td class="py-4 text-white">18</td>
+                                <td class="py-4">
+                                    <span class="text-green-500">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('CUS-002', 'Sarah Williams', 'sarah.w@example.com')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteCustomer('CUS-002')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Customer 3 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#CUS-003</td>
+                                <td class="py-4 text-gray-300">Michael Chen</td>
+                                <td class="py-4 text-gray-400">michael.chen@example.com</td>
+                                <td class="py-4 text-white">32</td>
+                                <td class="py-4">
+                                    <span class="text-green-500">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('CUS-003', 'Michael Chen', 'michael.chen@example.com')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteCustomer('CUS-003')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Customer 4 -->
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#CUS-004</td>
                                 <td class="py-4 text-gray-300">Emma Rodriguez</td>
-                                <td class="py-4 text-gray-400">Mar 30, 2023</td>
-                                <td class="py-4 text-gray-400">MacBook Air M2</td>
-                                <td class="py-4 text-white">$1,099.00</td>
+                                <td class="py-4 text-gray-400">emma.r@example.com</td>
+                                <td class="py-4 text-white">15</td>
                                 <td class="py-4">
-                                    <span class="status-badge status-cancelled-badge">
-                                        <i class="fas fa-user-times mr-1"></i> Customer Request
+                                    <span class="text-yellow-500">
+                                        <i class="fas fa-user-clock mr-1"></i> Inactive
                                     </span>
                                 </td>
                                 <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('CUS-004', 'Emma Rodriguez', 'emma.r@example.com')">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7298')">
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteCustomer('CUS-004')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
+                            <!-- Customer 5 -->
                             <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-7012</td>
-                                <td class="py-4 text-gray-300">Olivia Smith</td>
-                                <td class="py-4 text-gray-400">Feb 15, 2023</td>
-                                <td class="py-4 text-gray-400">iPhone 14, AirPods Max</td>
-                                <td class="py-4 text-white">$1,448.00</td>
+                                <td class="py-4 text-white">#CUS-005</td>
+                                <td class="py-4 text-gray-300">David Kim</td>
+                                <td class="py-4 text-gray-400">david.kim@example.com</td>
+                                <td class="py-4 text-white">42</td>
                                 <td class="py-4">
-                                    <span class="status-badge status-cancelled-badge">
-                                        <i class="fas fa-credit-card mr-1"></i> Payment Failed
+                                    <span class="text-green-500">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
                                     </span>
                                 </td>
                                 <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('CUS-005', 'David Kim', 'david.kim@example.com')">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7012')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-6874</td>
-                                <td class="py-4 text-gray-300">William Brown</td>
-                                <td class="py-4 text-gray-400">Jan 28, 2023</td>
-                                <td class="py-4 text-gray-400">Samsung Galaxy Watch 5</td>
-                                <td class="py-4 text-white">$329.99</td>
-                                <td class="py-4">
-                                    <span class="status-badge status-cancelled-badge">
-                                        <i class="fas fa-user-times mr-1"></i> Customer Request
-                                    </span>
-                                </td>
-                                <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-6874')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-6753</td>
-                                <td class="py-4 text-gray-300">Ava Davis</td>
-                                <td class="py-4 text-gray-400">Jan 12, 2023</td>
-                                <td class="py-4 text-gray-400">Google Pixel 7 Pro</td>
-                                <td class="py-4 text-white">$899.00</td>
-                                <td class="py-4">
-                                    <span class="status-badge status-cancelled-badge">
-                                        <i class="fas fa-credit-card mr-1"></i> Payment Failed
-                                    </span>
-                                </td>
-                                <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-6753')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-6621</td>
-                                <td class="py-4 text-gray-300">Noah Miller</td>
-                                <td class="py-4 text-gray-400">Dec 28, 2022</td>
-                                <td class="py-4 text-gray-400">Sony Alpha 7 IV</td>
-                                <td class="py-4 text-white">$2,499.00</td>
-                                <td class="py-4">
-                                    <span class="status-badge status-cancelled-badge">
-                                        <i class="fas fa-user-times mr-1"></i> Customer Request
-                                    </span>
-                                </td>
-                                <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-6621')">
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteCustomer('CUS-005')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
@@ -580,13 +625,14 @@
                 </div>
                 
                 <div class="flex justify-between items-center mt-6">
-                    <p class="text-gray-400">Showing 1 to 5 of 10 orders</p>
+                    <p class="text-gray-400">Showing 1 to 5 of 1,248 customers</p>
                     <div class="flex space-x-2">
                         <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">
                             <i class="fas fa-chevron-left"></i>
                         </button>
                         <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">1</button>
                         <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">2</button>
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">3</button>
                         <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">
                             <i class="fas fa-chevron-right"></i>
                         </button>
@@ -613,23 +659,28 @@
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-lg font-bold text-white mb-4">Support</h4>
+                        <h4 class="text-lg font-bold text-white mb-4">Customer Service</h4>
                         <ul class="space-y-2">
-                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Help Center</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Documentation</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-neon transition">System Status</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">FAQs</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Shipping Policy</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Returns & Refunds</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Privacy Policy</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-lg font-bold text-white mb-4">Contact</h4>
+                        <h4 class="text-lg font-bold text-white mb-4">Contact Info</h4>
                         <ul class="space-y-2 text-gray-400">
-                            <li class="flex items-center">
-                                <i class="fas fa-envelope mr-2"></i>
-                                <span>admin@optimusprime.com</span>
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                                <span>123 Tech Street, Digital City</span>
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-phone mr-2"></i>
                                 <span>+1 (555) 123-4567</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope mr-2"></i>
+                                <span>admin@optimusprime.com</span>
                             </li>
                         </ul>
                     </div>
@@ -639,6 +690,41 @@
                 </div>
             </div>
         </footer>
+    </div>
+    
+    <!-- Add/Edit Customer Modal -->
+    <div id="customerModal" class="modal-overlay fixed inset-0 flex items-center justify-center hidden">
+        <div class="modal w-full max-w-md p-6">
+            <div class="modal-header flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold section-title text-white">Add Customer</h3>
+                <button class="close-btn text-gray-400 hover:text-white text-2xl" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="customerForm">
+                <input type="hidden" id="customerId">
+                <div class="mb-4">
+                    <label class="block text-gray-300 mb-2">Full Name</label>
+                    <input type="text" id="customerName" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Enter full name" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-300 mb-2">Email Address</label>
+                    <input type="email" id="customerEmail" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Enter email address" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-300 mb-2">Total Orders</label>
+                    <input type="number" id="customerOrders" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Enter total orders" min="0" value="0">
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" class="btn-secondary px-6 py-3 rounded-lg text-white font-bold" onclick="closeModal()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn-primary px-6 py-3 rounded-lg text-white font-bold">
+                        Save Customer
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
     
     <script>
@@ -678,32 +764,85 @@
             }
         }
         
-        // Delete order function
-        function deleteOrder(orderId) {
-            if (confirm(`Are you sure you want to delete order ${orderId}?`)) {
-                // In a real application, this would make an API call to delete the order
-                alert(`Order ${orderId} has been deleted.`);
+        // Delete customer function
+        function deleteCustomer(customerId) {
+            if (confirm(`Are you sure you want to delete customer ${customerId}?`)) {
+                // In a real application, this would make an API call to delete the customer
+                alert(`Customer ${customerId} has been deleted.`);
                 // Here you would remove the row from the table
             }
         }
         
-        // Navigation item active state
-        document.querySelectorAll('.nav-item').forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all nav items
-                document.querySelectorAll('.nav-item').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                // Add active class to clicked item
-                this.classList.add('active');
+        // Open modal for adding customer
+        function openAddModal() {
+            document.getElementById('customerForm').reset();
+            document.getElementById('customerId').value = '';
+            document.querySelector('.modal h3').textContent = 'Add Customer';
+            document.getElementById('customerModal').classList.remove('hidden');
+        }
+        
+        // Open modal for editing customer
+        function openEditModal(id, name, email) {
+            document.getElementById('customerId').value = id;
+            document.getElementById('customerName').value = name;
+            document.getElementById('customerEmail').value = email;
+            document.getElementById('customerOrders').value = '0'; // In a real app, this would be fetched
+            document.querySelector('.modal h3').textContent = 'Edit Customer';
+            document.getElementById('customerModal').classList.remove('hidden');
+        }
+        
+        // Close modal
+        function closeModal() {
+            document.getElementById('customerModal').classList.add('hidden');
+        }
+        
+        // Handle form submission
+        document.getElementById('customerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const id = document.getElementById('customerId').value;
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const orders = document.getElementById('customerOrders').value;
+            
+            if (id) {
+                // Editing existing customer
+                alert(`Customer ${id} updated successfully!\nName: ${name}\nEmail: ${email}\nOrders: ${orders}`);
+            } else {
+                // Adding new customer
+                alert(`New customer added successfully!\nName: ${name}\nEmail: ${email}\nOrders: ${orders}`);
+            }
+            
+            // Close modal
+            closeModal();
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('customerModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Add pulse animation to buttons on hover
+        document.querySelectorAll('.btn-primary, .btn-secondary, .nav-item').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.classList.add('pulse-glow');
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.classList.remove('pulse-glow');
             });
         });
         
-        // Initialize submenu as open
+        // Initialize submenu as open for active page
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('orderSubmenu').classList.remove('hidden');
-            document.getElementById('orderChevron').classList.add('rotate-180');
+            // If on customer page, highlight the customer nav item
+            const customerNavItem = document.querySelector('a[href="customer.html"] .nav-item');
+            if (customerNavItem) {
+                customerNavItem.classList.add('active');
+            }
         });
     </script>
 </body>

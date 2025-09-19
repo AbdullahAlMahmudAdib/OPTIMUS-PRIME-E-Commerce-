@@ -1,10 +1,10 @@
-<!-- Save as cancelledorder.html -->
+<!-- Save as allorder.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPTIMUS PRIME - Cancelled Orders</title>
+    <title>OPTIMUS PRIME - All Orders</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -125,7 +125,7 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(60px);
-            opacity: 0.4;
+            opacity: 0.6;
             z-index: -1;
         }
         
@@ -159,6 +159,78 @@
         .logo-text {
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 2px;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .input-field {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #00f7ff;
+            box-shadow: 0 0 0 3px rgba(0, 247, 255, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.3);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20px;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+        }
+        
+        .btn-primary:hover::after {
+            left: 120%;
+        }
+        
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 247, 255, 0.2);
+            border-color: #00f7ff;
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(0, 247, 255, 0.2);
+            border-color: #00f7ff;
+            transform: translateY(-2px);
         }
         
         .nav-item {
@@ -210,56 +282,13 @@
             background: #8b5cf6;
         }
         
-        .btn-primary {
-            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.3);
-        }
-        
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-        
-        .btn-secondary {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(129, 140, 153, 0.3);
+        .cart-item {
             transition: all 0.3s ease;
         }
         
-        .btn-secondary:hover {
-            background: rgba(0, 247, 255, 0.2);
-            border-color: #00f7ff;
-            transform: translateY(-2px);
-        }
-        
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-        
-        .status-pending-badge {
-            background: rgba(245, 158, 11, 0.2);
-            color: #f59e0b;
-            border: 1px solid #f59e0b;
-        }
-        
-        .status-success-badge {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            border: 1px solid #10b981;
-        }
-        
-        .status-cancelled-badge {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            border: 1px solid #ef4444;
+        .cart-item.removing {
+            opacity: 0;
+            transform: translateX(100px);
         }
     </style>
 </head>
@@ -404,16 +433,52 @@
         <div class="container mx-auto px-4 py-8">
             <!-- Page Title -->
             <div class="mb-8">
-                <h2 class="text-3xl font-bold text-white mb-2">Cancelled Orders</h2>
-                <p class="text-gray-400">Manage cancelled orders</p>
+                <h2 class="text-3xl font-bold section-title text-white mb-2 glow-text">ALL ORDERS</h2>
+                <p class="text-gray-400">Manage all customer orders in one place</p>
             </div>
             
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <div class="admin-card neon-border p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-400">Total Cancelled</p>
+                            <p class="text-gray-400">Total Orders</p>
+                            <p class="text-3xl font-bold text-white">142</p>
+                        </div>
+                        <div class="text-3xl text-neon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">Pending</p>
+                            <p class="text-3xl font-bold text-white">24</p>
+                        </div>
+                        <div class="text-3xl text-yellow-500">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">Completed</p>
+                            <p class="text-3xl font-bold text-white">108</p>
+                        </div>
+                        <div class="text-3xl text-green-500">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">Cancelled</p>
                             <p class="text-3xl font-bold text-white">10</p>
                         </div>
                         <div class="text-3xl text-red-500">
@@ -421,41 +486,63 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Filters Section -->
+            <div class="admin-card neon-border p-6 mb-8">
+                <h3 class="text-xl font-bold section-title text-white mb-6">FILTER ORDERS</h3>
                 
-                <div class="admin-card neon-border p-6">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-gray-400">Customer Request</p>
-                            <p class="text-3xl font-bold text-white">6</p>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div>
+                        <label class="block text-gray-300 mb-2">Order ID</label>
+                        <input type="text" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Search by ID">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-300 mb-2">Customer</label>
+                        <input type="text" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Customer name">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-300 mb-2">Date Range</label>
+                        <div class="flex space-x-2">
+                            <input type="date" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none">
+                            <input type="date" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none">
                         </div>
-                        <div class="text-3xl text-orange-500">
-                            <i class="fas fa-user-times"></i>
-                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-300 mb-2">Status</label>
+                        <select class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none">
+                            <option>All Statuses</option>
+                            <option>Pending</option>
+                            <option>Processing</option>
+                            <option>Shipped</option>
+                            <option>Delivered</option>
+                            <option>Cancelled</option>
+                        </select>
                     </div>
                 </div>
                 
-                <div class="admin-card neon-border p-6">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-gray-400">Payment Failed</p>
-                            <p class="text-3xl font-bold text-white">4</p>
-                        </div>
-                        <div class="text-3xl text-rose-500">
-                            <i class="fas fa-credit-card"></i>
-                        </div>
-                    </div>
+                <div class="flex justify-end mt-6">
+                    <button class="btn-secondary px-6 py-3 rounded-lg text-white font-bold mr-3">
+                        <i class="fas fa-undo mr-2"></i> Reset
+                    </button>
+                    <button class="btn-primary px-6 py-3 rounded-lg text-white font-bold">
+                        <i class="fas fa-filter mr-2"></i> Apply Filters
+                    </button>
                 </div>
             </div>
             
             <!-- Orders Table -->
             <div class="admin-card neon-border p-6">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                    <h3 class="text-xl font-bold text-white mb-4 md:mb-0">Cancelled Orders</h3>
+                    <h3 class="text-xl font-bold section-title text-white mb-4 md:mb-0">ORDER LIST</h3>
                     <div class="flex space-x-3">
-                        <button class="px-4 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-600 transition">
-                            <i class="fas fa-filter mr-2"></i> Filter
+                        <button class="btn-secondary px-4 py-2 rounded-lg text-white font-bold">
+                            <i class="fas fa-file-export mr-2"></i> Export
                         </button>
-                        <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-500 text-white hover:from-purple-700 hover:to-cyan-600 transition">
+                        <button class="btn-primary px-4 py-2 rounded-lg text-white font-bold">
                             <i class="fas fa-sync-alt mr-2"></i> Refresh
                         </button>
                     </div>
@@ -470,11 +557,71 @@
                                 <th class="py-3 text-left text-gray-400">Date</th>
                                 <th class="py-3 text-left text-gray-400">Items</th>
                                 <th class="py-3 text-left text-gray-400">Total</th>
-                                <th class="py-3 text-left text-gray-400">Reason</th>
+                                <th class="py-3 text-left text-gray-400">Status</th>
                                 <th class="py-3 text-left text-gray-400">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#ORD-7842</td>
+                                <td class="py-4 text-gray-300">Alex Johnson</td>
+                                <td class="py-4 text-gray-400">May 15, 2023</td>
+                                <td class="py-4 text-gray-400">iPhone 15 Pro, AirPods Pro</td>
+                                <td class="py-4 text-white">$1,548.99</td>
+                                <td class="py-4">
+                                    <span class="status-success">
+                                        <i class="fas fa-check-circle mr-1"></i> Delivered
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7842')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#ORD-7621</td>
+                                <td class="py-4 text-gray-300">Sarah Williams</td>
+                                <td class="py-4 text-gray-400">Apr 28, 2023</td>
+                                <td class="py-4 text-gray-400">Samsung Galaxy Tab S9</td>
+                                <td class="py-4 text-white">$899.00</td>
+                                <td class="py-4">
+                                    <span class="status-success">
+                                        <i class="fas fa-truck mr-1"></i> Shipped
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7621')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#ORD-7435</td>
+                                <td class="py-4 text-gray-300">Michael Chen</td>
+                                <td class="py-4 text-gray-400">Apr 12, 2023</td>
+                                <td class="py-4 text-gray-400">Sony WH-1000XM5</td>
+                                <td class="py-4 text-white">$349.00</td>
+                                <td class="py-4">
+                                    <span class="status-pending">
+                                        <i class="fas fa-clock mr-1"></i> Processing
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7435')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
                             <tr class="border-b border-gray-800 hover:bg-gray-800">
                                 <td class="py-4 text-white">#ORD-7298</td>
                                 <td class="py-4 text-gray-300">Emma Rodriguez</td>
@@ -482,13 +629,13 @@
                                 <td class="py-4 text-gray-400">MacBook Air M2</td>
                                 <td class="py-4 text-white">$1,099.00</td>
                                 <td class="py-4">
-                                    <span class="status-badge status-cancelled-badge">
-                                        <i class="fas fa-user-times mr-1"></i> Customer Request
+                                    <span class="status-cancelled">
+                                        <i class="fas fa-times-circle mr-1"></i> Cancelled
                                     </span>
                                 </td>
                                 <td class="py-4">
                                     <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-eye"></i>
                                     </button>
                                     <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7298')">
                                         <i class="fas fa-trash"></i>
@@ -496,81 +643,21 @@
                                 </td>
                             </tr>
                             <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-7012</td>
-                                <td class="py-4 text-gray-300">Olivia Smith</td>
-                                <td class="py-4 text-gray-400">Feb 15, 2023</td>
-                                <td class="py-4 text-gray-400">iPhone 14, AirPods Max</td>
-                                <td class="py-4 text-white">$1,448.00</td>
+                                <td class="py-4 text-white">#ORD-7156</td>
+                                <td class="py-4 text-gray-300">David Kim</td>
+                                <td class="py-4 text-gray-400">Mar 18, 2023</td>
+                                <td class="py-4 text-gray-400">PlayStation 5</td>
+                                <td class="py-4 text-white">$499.00</td>
                                 <td class="py-4">
-                                    <span class="status-badge status-cancelled-badge">
-                                        <i class="fas fa-credit-card mr-1"></i> Payment Failed
+                                    <span class="status-pending">
+                                        <i class="fas fa-clock mr-1"></i> Pending
                                     </span>
                                 </td>
                                 <td class="py-4">
                                     <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7012')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-6874</td>
-                                <td class="py-4 text-gray-300">William Brown</td>
-                                <td class="py-4 text-gray-400">Jan 28, 2023</td>
-                                <td class="py-4 text-gray-400">Samsung Galaxy Watch 5</td>
-                                <td class="py-4 text-white">$329.99</td>
-                                <td class="py-4">
-                                    <span class="status-badge status-cancelled-badge">
-                                        <i class="fas fa-user-times mr-1"></i> Customer Request
-                                    </span>
-                                </td>
-                                <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-6874')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-6753</td>
-                                <td class="py-4 text-gray-300">Ava Davis</td>
-                                <td class="py-4 text-gray-400">Jan 12, 2023</td>
-                                <td class="py-4 text-gray-400">Google Pixel 7 Pro</td>
-                                <td class="py-4 text-white">$899.00</td>
-                                <td class="py-4">
-                                    <span class="status-badge status-cancelled-badge">
-                                        <i class="fas fa-credit-card mr-1"></i> Payment Failed
-                                    </span>
-                                </td>
-                                <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-6753')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-6621</td>
-                                <td class="py-4 text-gray-300">Noah Miller</td>
-                                <td class="py-4 text-gray-400">Dec 28, 2022</td>
-                                <td class="py-4 text-gray-400">Sony Alpha 7 IV</td>
-                                <td class="py-4 text-white">$2,499.00</td>
-                                <td class="py-4">
-                                    <span class="status-badge status-cancelled-badge">
-                                        <i class="fas fa-user-times mr-1"></i> Customer Request
-                                    </span>
-                                </td>
-                                <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-6621')">
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7156')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
@@ -580,13 +667,14 @@
                 </div>
                 
                 <div class="flex justify-between items-center mt-6">
-                    <p class="text-gray-400">Showing 1 to 5 of 10 orders</p>
+                    <p class="text-gray-400">Showing 1 to 5 of 142 orders</p>
                     <div class="flex space-x-2">
                         <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">
                             <i class="fas fa-chevron-left"></i>
                         </button>
                         <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">1</button>
                         <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">2</button>
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">3</button>
                         <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">
                             <i class="fas fa-chevron-right"></i>
                         </button>
@@ -601,7 +689,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
                         <h3 class="text-xl font-bold logo-text text-white mb-4 glow-text">OPTIMUS PRIME</h3>
-                        <p class="text-gray-400">Admin Dashboard</p>
+                        <p class="text-gray-400">
+                            Admin Dashboard
+                        </p>
                     </div>
                     <div>
                         <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
@@ -613,29 +703,34 @@
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-lg font-bold text-white mb-4">Support</h4>
+                        <h4 class="text-lg font-bold text-white mb-4">Customer Service</h4>
                         <ul class="space-y-2">
-                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Help Center</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Documentation</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-neon transition">System Status</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">FAQs</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Shipping Policy</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Returns & Refunds</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Privacy Policy</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-lg font-bold text-white mb-4">Contact</h4>
+                        <h4 class="text-lg font-bold text-white mb-4">Contact Info</h4>
                         <ul class="space-y-2 text-gray-400">
-                            <li class="flex items-center">
-                                <i class="fas fa-envelope mr-2"></i>
-                                <span>admin@optimusprime.com</span>
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                                <span>123 Tech Street, Digital City</span>
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-phone mr-2"></i>
                                 <span>+1 (555) 123-4567</span>
                             </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope mr-2"></i>
+                                <span>info@optimusprime.com</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
                 <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500">
-                    <p>© 2023 OPTIMUS PRIME Admin Dashboard. All rights reserved.</p>
+                    <p>© 2023 OPTIMUS PRIME Mobile Shop. All rights reserved.</p>
                 </div>
             </div>
         </footer>
@@ -687,21 +782,31 @@
             }
         }
         
-        // Navigation item active state
-        document.querySelectorAll('.nav-item').forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all nav items
-                document.querySelectorAll('.nav-item').forEach(btn => {
-                    btn.classList.remove('active');
+        // Add pulse animation to buttons on hover
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to all buttons with btn-primary, btn-secondary, nav-btn classes
+            document.querySelectorAll('.btn-primary, .btn-secondary, .nav-btn').forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.classList.add('pulse-glow');
                 });
                 
-                // Add active class to clicked item
-                this.classList.add('active');
+                button.addEventListener('mouseleave', function() {
+                    this.classList.remove('pulse-glow');
+                });
             });
-        });
-        
-        // Initialize submenu as open
-        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Add hover effects to nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.classList.add('pulse-glow');
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.classList.remove('pulse-glow');
+                });
+            });
+            
+            // Initialize submenu as open
             document.getElementById('orderSubmenu').classList.remove('hidden');
             document.getElementById('orderChevron').classList.add('rotate-180');
         });
