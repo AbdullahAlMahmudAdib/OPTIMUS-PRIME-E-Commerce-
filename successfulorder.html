@@ -1,0 +1,691 @@
+<!-- Save as successfulorder.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPTIMUS PRIME - Successful Orders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a',
+                        secondary: '#1e293b',
+                        accent: '#00f7ff',
+                        neon: '#00f7ff',
+                        purple: '#8b5cf6',
+                        dark: '#0c111b',
+                        sidebar: '#0a0f1a'
+                    },
+                    fontFamily: {
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                        'exo': ['Exo 2', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'slide-in': 'slideIn 0.5s ease-out forwards',
+                        'slide-out': 'slideOut 0.5s ease-out forwards',
+                        'sidebar-in': 'sidebarIn 0.3s ease-out forwards',
+                        'sidebar-out': 'sidebarOut 0.3s ease-out forwards',
+                        'fade-in': 'fadeIn 0.3s ease-out forwards'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #00f7ff, 0 0 10px #00f7ff' },
+                            '100%': { boxShadow: '0 0 20px #00f7ff, 0 0 30px #00f7ff' }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(100%)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        },
+                        slideOut: {
+                            '0%': { transform: 'translateX(0)', opacity: '1' },
+                            '100%': { transform: 'translateX(100%)', opacity: '0' }
+                        },
+                        sidebarIn: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' }
+                        },
+                        sidebarOut: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-100%)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0c111b 0%, #1e293b 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Exo 2', sans-serif;
+        }
+        
+        .neon-border {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6, #00f7ff);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff;
+        }
+        
+        .pulse-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .sidebar {
+            background: rgba(10, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .admin-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+        
+        .floating-1 {
+            width: 300px;
+            height: 300px;
+            background: #00f7ff;
+            top: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            width: 200px;
+            height: 200px;
+            background: #8b5cf6;
+            bottom: 10%;
+            right: 5%;
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        .floating-3 {
+            width: 150px;
+            height: 150px;
+            background: #00f7ff;
+            top: 40%;
+            right: 20%;
+            animation: float 12s ease-in-out infinite;
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+        
+        .nav-item {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            background: rgba(0, 247, 255, 0.2);
+            border-color: #00f7ff;
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
+            color: white;
+        }
+        
+        .status-pending {
+            color: #f59e0b;
+        }
+        
+        .status-success {
+            color: #10b981;
+        }
+        
+        .status-cancelled {
+            color: #ef4444;
+        }
+        
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        /* Custom scrollbar */
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .table-container::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+        }
+        
+        .table-container::-webkit-scrollbar-thumb {
+            background: #00f7ff;
+            border-radius: 4px;
+        }
+        
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #8b5cf6;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00f7ff, #8b5cf6);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.3);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(129, 140, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 247, 255, 0.2);
+            border-color: #00f7ff;
+            transform: translateY(-2px);
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .status-pending-badge {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border: 1px solid #f59e0b;
+        }
+        
+        .status-success-badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid #10b981;
+        }
+        
+        .status-cancelled-badge {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Floating background elements -->
+    <div class="floating-element floating-1"></div>
+    <div class="floating-element floating-2"></div>
+    <div class="floating-element floating-3"></div>
+    
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-70 z-40 hidden" onclick="toggleSidebar()"></div>
+    
+    <!-- Sidebar for Navigation -->
+    <div id="adminSidebar" class="sidebar fixed top-0 left-0 h-full w-64 z-50 transform -translate-x-full md:translate-x-0">
+        <div class="p-6 border-b border-gray-700">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold logo-text text-white glow-text">ADMIN PANEL</h2>
+                <button class="md:hidden text-white" onclick="toggleSidebar()">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="p-4">
+            <ul class="space-y-2">
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
+                        <i class="fas fa-home mr-3"></i> Dashboard
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
+                        <i class="fas fa-box mr-3"></i> Products
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
+                        <i class="fas fa-users mr-3"></i> Customers
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white active" onclick="toggleOrderSubmenu()">
+                        <i class="fas fa-shopping-cart mr-3"></i> Orders
+                        <i class="fas fa-chevron-down float-right mt-1 transition-transform" id="orderChevron"></i>
+                    </button>
+                    <ul class="ml-8 mt-2 space-y-2" id="orderSubmenu">
+                        <li>
+                            <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
+                                <i class="fas fa-list mr-2"></i> All Orders
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
+                                <i class="fas fa-clock mr-2"></i> Pending Orders
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm active">
+                                <i class="fas fa-check-circle mr-2"></i> Successful Orders
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
+                                <i class="fas fa-times-circle mr-2"></i> Cancelled Orders
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
+                        <i class="fas fa-chart-line mr-3"></i> Analytics
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
+                        <i class="fas fa-cog mr-3"></i> Settings
+                    </button>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="absolute bottom-0 w-full p-4 border-t border-gray-700">
+            <button class="w-full py-3 rounded-lg text-white bg-gradient-to-r from-purple-600 to-cyan-500">
+                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="md:ml-64">
+        <!-- Top Navigation Bar -->
+        <div class="bg-gray-900 bg-opacity-80 backdrop-blur-sm border-b border-gray-800 sticky top-0 z-30">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <!-- Logo and Menu Button -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <h1 class="text-2xl md:text-3xl font-bold logo-text text-white glow-text">OPTIMUS PRIME</h1>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button class="md:hidden mobile-menu-btn p-2 rounded-lg bg-gray-800 text-white" onclick="toggleSidebar()">
+                                <i class="fas fa-bars text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Admin Info -->
+                    <div class="flex items-center space-x-4">
+                        <div class="text-right hidden md:block">
+                            <p class="text-white font-bold">Admin User</p>
+                            <p class="text-gray-400 text-sm">Administrator</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
+                            <i class="fas fa-user text-neon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Content -->
+        <div class="container mx-auto px-4 py-8">
+            <!-- Page Title -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">Successful Orders</h2>
+                <p class="text-gray-400">Manage completed orders</p>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">Total Successful</p>
+                            <p class="text-3xl font-bold text-white">108</p>
+                        </div>
+                        <div class="text-3xl text-green-500">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">Shipped</p>
+                            <p class="text-3xl font-bold text-white">72</p>
+                        </div>
+                        <div class="text-3xl text-blue-500">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-card neon-border p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400">Delivered</p>
+                            <p class="text-3xl font-bold text-white">36</p>
+                        </div>
+                        <div class="text-3xl text-teal-500">
+                            <i class="fas fa-home"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Orders Table -->
+            <div class="admin-card neon-border p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                    <h3 class="text-xl font-bold text-white mb-4 md:mb-0">Successful Orders</h3>
+                    <div class="flex space-x-3">
+                        <button class="px-4 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-600 transition">
+                            <i class="fas fa-filter mr-2"></i> Filter
+                        </button>
+                        <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-500 text-white hover:from-purple-700 hover:to-cyan-600 transition">
+                            <i class="fas fa-sync-alt mr-2"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-gray-700">
+                                <th class="py-3 text-left text-gray-400">Order ID</th>
+                                <th class="py-3 text-left text-gray-400">Customer</th>
+                                <th class="py-3 text-left text-gray-400">Date</th>
+                                <th class="py-3 text-left text-gray-400">Items</th>
+                                <th class="py-3 text-left text-gray-400">Total</th>
+                                <th class="py-3 text-left text-gray-400">Status</th>
+                                <th class="py-3 text-left text-gray-400">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#ORD-7842</td>
+                                <td class="py-4 text-gray-300">Alex Johnson</td>
+                                <td class="py-4 text-gray-400">May 15, 2023</td>
+                                <td class="py-4 text-gray-400">iPhone 15 Pro, AirPods Pro</td>
+                                <td class="py-4 text-white">$1,548.99</td>
+                                <td class="py-4">
+                                    <span class="status-badge status-success-badge">
+                                        <i class="fas fa-truck mr-1"></i> Shipped
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7842')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#ORD-7435</td>
+                                <td class="py-4 text-gray-300">Michael Chen</td>
+                                <td class="py-4 text-gray-400">Apr 12, 2023</td>
+                                <td class="py-4 text-gray-400">Sony WH-1000XM5</td>
+                                <td class="py-4 text-white">$349.00</td>
+                                <td class="py-4">
+                                    <span class="status-badge status-success-badge">
+                                        <i class="fas fa-home mr-1"></i> Delivered
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7435')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#ORD-7298</td>
+                                <td class="py-4 text-gray-300">Emma Rodriguez</td>
+                                <td class="py-4 text-gray-400">Mar 30, 2023</td>
+                                <td class="py-4 text-gray-400">MacBook Air M2</td>
+                                <td class="py-4 text-white">$1,099.00</td>
+                                <td class="py-4">
+                                    <span class="status-badge status-success-badge">
+                                        <i class="fas fa-truck mr-1"></i> Shipped
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7298')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#ORD-7124</td>
+                                <td class="py-4 text-gray-300">Sophia Lee</td>
+                                <td class="py-4 text-gray-400">Mar 5, 2023</td>
+                                <td class="py-4 text-gray-400">iPad Pro, Apple Pencil</td>
+                                <td class="py-4 text-white">$1,298.00</td>
+                                <td class="py-4">
+                                    <span class="status-badge status-success-badge">
+                                        <i class="fas fa-home mr-1"></i> Delivered
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7124')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-800 hover:bg-gray-800">
+                                <td class="py-4 text-white">#ORD-6987</td>
+                                <td class="py-4 text-gray-300">James Wilson</td>
+                                <td class="py-4 text-gray-400">Feb 22, 2023</td>
+                                <td class="py-4 text-gray-400">Samsung Galaxy S23 Ultra</td>
+                                <td class="py-4 text-white">$1,199.00</td>
+                                <td class="py-4">
+                                    <span class="status-badge status-success-badge">
+                                        <i class="fas fa-truck mr-1"></i> Shipped
+                                    </span>
+                                </td>
+                                <td class="py-4">
+                                    <button class="text-neon hover:text-purple-400 mr-3">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-6987')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="flex justify-between items-center mt-6">
+                    <p class="text-gray-400">Showing 1 to 5 of 108 orders</p>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">1</button>
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">2</button>
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">3</button>
+                        <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-16 w-full bg-gray-900 bg-opacity-50 border-t border-gray-800">
+            <div class="container mx-auto px-4 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold logo-text text-white mb-4 glow-text">OPTIMUS PRIME</h3>
+                        <p class="text-gray-400">Admin Dashboard</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Dashboard</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Orders</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Products</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Customers</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Support</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Help Center</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Documentation</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">System Status</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Contact</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope mr-2"></i>
+                                <span>admin@optimusprime.com</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone mr-2"></i>
+                                <span>+1 (555) 123-4567</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500">
+                    <p>© 2023 OPTIMUS PRIME Admin Dashboard. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Toggle sidebar on mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('adminSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('animate-sidebar-in');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.remove('animate-sidebar-in');
+                sidebar.classList.add('animate-sidebar-out');
+                overlay.classList.add('hidden');
+                
+                // Reset animation classes after animation completes
+                setTimeout(() => {
+                    sidebar.classList.remove('animate-sidebar-out');
+                    sidebar.classList.add('-translate-x-full');
+                }, 300);
+            }
+        }
+        
+        // Toggle order submenu
+        function toggleOrderSubmenu() {
+            const submenu = document.getElementById('orderSubmenu');
+            const chevron = document.getElementById('orderChevron');
+            
+            if (submenu.classList.contains('hidden')) {
+                submenu.classList.remove('hidden');
+                chevron.classList.add('rotate-180');
+            } else {
+                submenu.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
+            }
+        }
+        
+        // Delete order function
+        function deleteOrder(orderId) {
+            if (confirm(`Are you sure you want to delete order ${orderId}?`)) {
+                // In a real application, this would make an API call to delete the order
+                alert(`Order ${orderId} has been deleted.`);
+                // Here you would remove the row from the table
+            }
+        }
+        
+        // Navigation item active state
+        document.querySelectorAll('.nav-item').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+            });
+        });
+        
+        // Initialize submenu as open
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('orderSubmenu').classList.remove('hidden');
+            document.getElementById('orderChevron').classList.add('rotate-180');
+        });
+    </script>
+</body>
+</html>
