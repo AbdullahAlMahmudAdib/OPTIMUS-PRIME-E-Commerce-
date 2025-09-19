@@ -342,6 +342,29 @@
                         </li>
                     </ul>
                 </li>
+                <!-- Category Section -->
+                <li>
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white" onclick="toggleCategorySubmenu()">
+                        <i class="fas fa-tags mr-3"></i> Categories
+                        <i class="fas fa-chevron-down float-right mt-1 transition-transform" id="categoryChevron"></i>
+                    </button>
+                    <ul class="ml-8 mt-2 space-y-2 hidden" id="categorySubmenu">
+                        <li>
+                            <a href="maincategory.html">
+                                <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
+                                    <i class="fas fa-layer-group mr-2"></i> Main Categories
+                                </button>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="subcategory.html">
+                                <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
+                                    <i class="fas fa-sitemap mr-2"></i> Sub Categories
+                                </button>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a href="analytics.html">
                         <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white">
@@ -687,7 +710,19 @@
                 // Here you would remove the row from the table
             }
         }
-        
+        // Toggle category submenu
+function toggleCategorySubmenu() {
+    const submenu = document.getElementById('categorySubmenu');
+    const chevron = document.getElementById('categoryChevron');
+    
+    if (submenu.classList.contains('hidden')) {
+        submenu.classList.remove('hidden');
+        chevron.classList.add('rotate-180');
+    } else {
+        submenu.classList.add('hidden');
+        chevron.classList.remove('rotate-180');
+    }
+}
         // Navigation item active state
         document.querySelectorAll('.nav-item').forEach(button => {
             button.addEventListener('click', function() {

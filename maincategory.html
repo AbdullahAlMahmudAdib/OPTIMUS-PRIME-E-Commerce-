@@ -1,9 +1,10 @@
+<!-- Save as maincategory.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPTIMUS PRIME - Admin Dashboard</title>
+    <title>OPTIMUS PRIME - Main Categories</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -124,7 +125,7 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(60px);
-            opacity: 0.4;
+            opacity: 0.6;
             z-index: -1;
         }
         
@@ -246,18 +247,6 @@
             color: white;
         }
         
-        .status-pending {
-            color: #f59e0b;
-        }
-        
-        .status-success {
-            color: #10b981;
-        }
-        
-        .status-cancelled {
-            color: #ef4444;
-        }
-        
         .table-container {
             max-height: 500px;
             overflow-y: auto;
@@ -281,47 +270,41 @@
             background: #8b5cf6;
         }
         
-        /* Category dropdown styles */
-        .category-dropdown {
-            position: relative;
-            display: inline-block;
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #1e293b, #0f172a);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
         }
         
-        .dropdown-content {
-            display: none;
-            position: absolute;
+        .modal {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 12px;
+            border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(129, 140, 153, 0.3);
-            z-index: 100;
-            min-width: 200px;
-            left: 0;
-            top: 100%;
-            margin-top: 5px;
         }
         
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 50;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid rgba(129, 140, 153, 0.3);
+        }
+        
+        .close-btn {
             transition: all 0.3s ease;
         }
         
-        .dropdown-content a:hover {
-            background: rgba(0, 247, 255, 0.2);
-        }
-        
-        .category-dropdown:hover .dropdown-content {
-            display: block;
-            animation: fadeIn 0.3s ease-out forwards;
-        }
-        
-        .category-dropdown:hover .nav-btn {
-            background: rgba(0, 247, 255, 0.2);
-            border-color: #00f7ff;
+        .close-btn:hover {
+            transform: rotate(90deg);
+            color: #ef4444;
         }
     </style>
 </head>
@@ -404,16 +387,15 @@
                         </li>
                     </ul>
                 </li>
-                <!-- Category Section -->
                 <li>
-                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white" onclick="toggleCategorySubmenu()">
+                    <button class="nav-item w-full text-left px-4 py-3 rounded-lg text-white active" onclick="toggleCategorySubmenu()">
                         <i class="fas fa-tags mr-3"></i> Categories
                         <i class="fas fa-chevron-down float-right mt-1 transition-transform" id="categoryChevron"></i>
                     </button>
                     <ul class="ml-8 mt-2 space-y-2 hidden" id="categorySubmenu">
                         <li>
                             <a href="maincategory.html">
-                                <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm">
+                                <button class="nav-item w-full text-left px-4 py-2 rounded-lg text-white text-sm active">
                                     <i class="fas fa-layer-group mr-2"></i> Main Categories
                                 </button>
                             </a>
@@ -489,20 +471,20 @@
         <div class="container mx-auto px-4 py-8">
             <!-- Page Title -->
             <div class="mb-8">
-                <h2 class="text-3xl font-bold section-title text-white mb-2 glow-text">ADMIN DASHBOARD</h2>
-                <p class="text-gray-400">Welcome back, Admin User</p>
+                <h2 class="text-3xl font-bold section-title text-white mb-2 glow-text">MAIN CATEGORIES</h2>
+                <p class="text-gray-400">Manage all main product categories</p>
             </div>
             
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="admin-card neon-border p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-400">Total Revenue</p>
-                            <p class="text-3xl font-bold text-white">$124,580</p>
+                            <p class="text-gray-400">Total Categories</p>
+                            <p class="text-3xl font-bold text-white">12</p>
                         </div>
                         <div class="text-3xl text-neon">
-                            <i class="fas fa-dollar-sign"></i>
+                            <i class="fas fa-layer-group"></i>
                         </div>
                     </div>
                 </div>
@@ -510,23 +492,11 @@
                 <div class="admin-card neon-border p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-400">Orders</p>
-                            <p class="text-3xl font-bold text-white">142</p>
+                            <p class="text-gray-400">Active</p>
+                            <p class="text-3xl font-bold text-white">10</p>
                         </div>
-                        <div class="text-3xl text-neon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="admin-card neon-border p-6">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-gray-400">Customers</p>
-                            <p class="text-3xl font-bold text-white">1,248</p>
-                        </div>
-                        <div class="text-3xl text-neon">
-                            <i class="fas fa-users"></i>
+                        <div class="text-3xl text-green-500">
+                            <i class="fas fa-check-circle"></i>
                         </div>
                     </div>
                 </div>
@@ -534,60 +504,31 @@
                 <div class="admin-card neon-border p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-400">Products</p>
-                            <p class="text-3xl font-bold text-white">86</p>
+                            <p class="text-gray-400">Inactive</p>
+                            <p class="text-3xl font-bold text-white">2</p>
                         </div>
-                        <div class="text-3xl text-neon">
-                            <i class="fas fa-box-open"></i>
+                        <div class="text-3xl text-yellow-500">
+                            <i class="fas fa-exclamation-circle"></i>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Charts Section -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                <!-- Revenue Chart -->
-                <div class="admin-card neon-border p-6">
-                    <h3 class="text-xl font-bold text-white mb-6">Revenue Overview</h3>
-                    <div class="h-64 flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="text-5xl text-neon mb-4">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <p class="text-gray-400">Revenue Chart</p>
-                            <p class="text-white mt-2">Data visualization coming soon</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Orders Chart -->
-                <div class="admin-card neon-border p-6">
-                    <h3 class="text-xl font-bold text-white mb-6">Orders by Category</h3>
-                    <div class="h-64 flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="text-5xl text-neon mb-4">
-                                <i class="fas fa-chart-pie"></i>
-                            </div>
-                            <p class="text-gray-400">Category Distribution</p>
-                            <p class="text-white mt-2">Data visualization coming soon</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Recent Orders -->
+            <!-- Categories Table -->
             <div class="admin-card neon-border p-6">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                    <h3 class="text-xl font-bold text-white mb-4 md:mb-0">Recent Orders</h3>
+                    <h3 class="text-xl font-bold text-white mb-4 md:mb-0">Main Categories List</h3>
                     <div class="flex space-x-3">
+                        <div class="relative">
+                            <input type="text" placeholder="Search categories..." class="input-field px-4 py-2 rounded-lg text-white focus:outline-none pl-10">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
                         <button class="btn-secondary px-4 py-2 rounded-lg text-white">
                             <i class="fas fa-filter mr-2"></i> Filter
                         </button>
-                        <a href="allorder.html">
-                            <button class="btn-primary px-4 py-2 rounded-lg text-white">
-                                <i class="fas fa-eye mr-2"></i> View All
-                            </button>
-                        </a>
+                        <button class="btn-primary px-4 py-2 rounded-lg text-white" onclick="openAddModal()">
+                            <i class="fas fa-plus mr-2"></i> Add Category
+                        </button>
                     </div>
                 </div>
                 
@@ -595,112 +536,126 @@
                     <table class="w-full">
                         <thead>
                             <tr class="border-b border-gray-700">
-                                <th class="py-3 text-left text-gray-400">Order ID</th>
-                                <th class="py-3 text-left text-gray-400">Customer</th>
-                                <th class="py-3 text-left text-gray-400">Date</th>
-                                <th class="py-3 text-left text-gray-400">Items</th>
-                                <th class="py-3 text-left text-gray-400">Total</th>
+                                <th class="py-3 text-left text-gray-400">ID</th>
+                                <th class="py-3 text-left text-gray-400">Icon</th>
+                                <th class="py-3 text-left text-gray-400">Name</th>
+                                <th class="py-3 text-left text-gray-400">Slug</th>
                                 <th class="py-3 text-left text-gray-400">Status</th>
                                 <th class="py-3 text-left text-gray-400">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-7842</td>
-                                <td class="py-4 text-gray-300">Alex Johnson</td>
-                                <td class="py-4 text-gray-400">May 15, 2023</td>
-                                <td class="py-4 text-gray-400">iPhone 15 Pro, AirPods Pro</td>
-                                <td class="py-4 text-white">$1,548.99</td>
+                                <td class="py-4 text-white">#CAT-001</td>
                                 <td class="py-4">
-                                    <span class="status-success">
-                                        <i class="fas fa-check-circle mr-1"></i> Completed
+                                    <div class="category-icon text-neon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">Smartphones</td>
+                                <td class="py-4 text-gray-400">smartphones</td>
+                                <td class="py-4">
+                                    <span class="text-green-500">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
                                     </span>
                                 </td>
                                 <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-eye"></i>
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('CAT-001', 'Smartphones', 'smartphones')">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7842')">
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteCategory('CAT-001')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
                             <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-7621</td>
-                                <td class="py-4 text-gray-300">Sarah Williams</td>
-                                <td class="py-4 text-gray-400">Apr 28, 2023</td>
-                                <td class="py-4 text-gray-400">Samsung Galaxy Tab S9</td>
-                                <td class="py-4 text-white">$899.00</td>
+                                <td class="py-4 text-white">#CAT-002</td>
                                 <td class="py-4">
-                                    <span class="status-pending">
-                                        <i class="fas fa-clock mr-1"></i> Pending
+                                    <div class="category-icon text-neon">
+                                        <i class="fas fa-tablet-alt"></i>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">Tablets</td>
+                                <td class="py-4 text-gray-400">tablets</td>
+                                <td class="py-4">
+                                    <span class="text-green-500">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
                                     </span>
                                 </td>
                                 <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-eye"></i>
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('CAT-002', 'Tablets', 'tablets')">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7621')">
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteCategory('CAT-002')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
                             <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-7435</td>
-                                <td class="py-4 text-gray-300">Michael Chen</td>
-                                <td class="py-4 text-gray-400">Apr 12, 2023</td>
-                                <td class="py-4 text-gray-400">Sony WH-1000XM5</td>
-                                <td class="py-4 text-white">$349.00</td>
+                                <td class="py-4 text-white">#CAT-003</td>
                                 <td class="py-4">
-                                    <span class="status-success">
-                                        <i class="fas fa-check-circle mr-1"></i> Completed
+                                    <div class="category-icon text-neon">
+                                        <i class="fas fa-laptop"></i>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">Laptops</td>
+                                <td class="py-4 text-gray-400">laptops</td>
+                                <td class="py-4">
+                                    <span class="text-green-500">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
                                     </span>
                                 </td>
                                 <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-eye"></i>
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('CAT-003', 'Laptops', 'laptops')">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7435')">
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteCategory('CAT-003')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
                             <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-7298</td>
-                                <td class="py-4 text-gray-300">Emma Rodriguez</td>
-                                <td class="py-4 text-gray-400">Mar 30, 2023</td>
-                                <td class="py-4 text-gray-400">MacBook Air M2</td>
-                                <td class="py-4 text-white">$1,099.00</td>
+                                <td class="py-4 text-white">#CAT-004</td>
                                 <td class="py-4">
-                                    <span class="status-cancelled">
-                                        <i class="fas fa-times-circle mr-1"></i> Cancelled
+                                    <div class="category-icon text-neon">
+                                        <i class="fas fa-headphones"></i>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">Audio</td>
+                                <td class="py-4 text-gray-400">audio</td>
+                                <td class="py-4">
+                                    <span class="text-green-500">
+                                        <i class="fas fa-check-circle mr-1"></i> Active
                                     </span>
                                 </td>
                                 <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-eye"></i>
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('CAT-004', 'Audio', 'audio')">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7298')">
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteCategory('CAT-004')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
                             <tr class="border-b border-gray-800 hover:bg-gray-800">
-                                <td class="py-4 text-white">#ORD-7156</td>
-                                <td class="py-4 text-gray-300">David Kim</td>
-                                <td class="py-4 text-gray-400">Mar 18, 2023</td>
-                                <td class="py-4 text-gray-400">PlayStation 5</td>
-                                <td class="py-4 text-white">$499.00</td>
+                                <td class="py-4 text-white">#CAT-005</td>
                                 <td class="py-4">
-                                    <span class="status-pending">
-                                        <i class="fas fa-clock mr-1"></i> Pending
+                                    <div class="category-icon text-neon">
+                                        <i class="fas fa-gamepad"></i>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-300">Gaming</td>
+                                <td class="py-4 text-gray-400">gaming</td>
+                                <td class="py-4">
+                                    <span class="text-yellow-500">
+                                        <i class="fas fa-exclamation-circle mr-1"></i> Inactive
                                     </span>
                                 </td>
                                 <td class="py-4">
-                                    <button class="text-neon hover:text-purple-400 mr-3">
-                                        <i class="fas fa-eye"></i>
+                                    <button class="text-neon hover:text-purple-400 mr-3" onclick="openEditModal('CAT-005', 'Gaming', 'gaming')">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-red-500 hover:text-red-400" onclick="deleteOrder('ORD-7156')">
+                                    <button class="text-red-500 hover:text-red-400" onclick="deleteCategory('CAT-005')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
@@ -710,7 +665,7 @@
                 </div>
                 
                 <div class="flex justify-between items-center mt-6">
-                    <p class="text-gray-400">Showing 1 to 5 of 142 orders</p>
+                    <p class="text-gray-400">Showing 1 to 5 of 12 categories</p>
                     <div class="flex space-x-2">
                         <button class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-gray-600">
                             <i class="fas fa-chevron-left"></i>
@@ -744,23 +699,28 @@
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-lg font-bold text-white mb-4">Support</h4>
+                        <h4 class="text-lg font-bold text-white mb-4">Customer Service</h4>
                         <ul class="space-y-2">
-                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Help Center</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Documentation</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-neon transition">System Status</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">FAQs</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Shipping Policy</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Returns & Refunds</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-neon transition">Privacy Policy</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-lg font-bold text-white mb-4">Contact</h4>
+                        <h4 class="text-lg font-bold text-white mb-4">Contact Info</h4>
                         <ul class="space-y-2 text-gray-400">
-                            <li class="flex items-center">
-                                <i class="fas fa-envelope mr-2"></i>
-                                <span>admin@optimusprime.com</span>
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                                <span>123 Tech Street, Digital City</span>
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-phone mr-2"></i>
                                 <span>+1 (555) 123-4567</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope mr-2"></i>
+                                <span>admin@optimusprime.com</span>
                             </li>
                         </ul>
                     </div>
@@ -770,6 +730,62 @@
                 </div>
             </div>
         </footer>
+    </div>
+    
+    <!-- Add/Edit Category Modal -->
+    <div id="categoryModal" class="modal-overlay fixed inset-0 flex items-center justify-center hidden">
+        <div class="modal w-full max-w-md p-6">
+            <div class="modal-header flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold section-title text-white">Add Category</h3>
+                <button class="close-btn text-gray-400 hover:text-white text-2xl" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="categoryForm">
+                <input type="hidden" id="categoryId">
+                <div class="mb-4">
+                    <label class="block text-gray-300 mb-2">Category Name *</label>
+                    <input type="text" id="categoryName" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Enter category name" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-300 mb-2">Slug *</label>
+                    <input type="text" id="categorySlug" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" placeholder="Enter category slug" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-300 mb-2">Icon *</label>
+                    <div class="flex items-center">
+                        <div class="category-icon text-neon mr-4" id="iconPreview">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <select id="categoryIcon" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none" onchange="updateIconPreview()">
+                            <option value="fa-mobile-alt">Mobile</option>
+                            <option value="fa-tablet-alt">Tablet</option>
+                            <option value="fa-laptop">Laptop</option>
+                            <option value="fa-headphones">Headphones</option>
+                            <option value="fa-gamepad">Gamepad</option>
+                            <option value="fa-camera">Camera</option>
+                            <option value="fa-watch">Watch</option>
+                            <option value="fa-plug">Plug</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-300 mb-2">Status</label>
+                    <select id="categoryStatus" class="input-field w-full px-4 py-3 rounded-lg text-white focus:outline-none">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" class="btn-secondary px-6 py-3 rounded-lg text-white font-bold" onclick="closeModal()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn-primary px-6 py-3 rounded-lg text-white font-bold">
+                        Save Category
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
     
     <script>
@@ -809,20 +825,11 @@
             }
         }
         
-        // Delete order function
-        function deleteOrder(orderId) {
-            if (confirm(`Are you sure you want to delete order ${orderId}?`)) {
-                // In a real application, this would make an API call to delete the order
-                alert(`Order ${orderId} has been deleted.`);
-                // Here you would remove the row from the table
-            }
-        }
-
         // Toggle category submenu
         function toggleCategorySubmenu() {
             const submenu = document.getElementById('categorySubmenu');
             const chevron = document.getElementById('categoryChevron');
-    
+            
             if (submenu.classList.contains('hidden')) {
                 submenu.classList.remove('hidden');
                 chevron.classList.add('rotate-180');
@@ -831,6 +838,75 @@
                 chevron.classList.remove('rotate-180');
             }
         }
+        
+        // Delete category function
+        function deleteCategory(categoryId) {
+            if (confirm(`Are you sure you want to delete category ${categoryId}?`)) {
+                // In a real application, this would make an API call to delete the category
+                alert(`Category ${categoryId} has been deleted.`);
+                // Here you would remove the row from the table
+            }
+        }
+        
+        // Open modal for adding category
+        function openAddModal() {
+            document.getElementById('categoryForm').reset();
+            document.getElementById('categoryId').value = '';
+            document.querySelector('.modal h3').textContent = 'Add Category';
+            document.getElementById('categoryModal').classList.remove('hidden');
+        }
+        
+        // Open modal for editing category
+        function openEditModal(id, name, slug) {
+            document.getElementById('categoryId').value = id;
+            document.getElementById('categoryName').value = name;
+            document.getElementById('categorySlug').value = slug;
+            document.querySelector('.modal h3').textContent = 'Edit Category';
+            document.getElementById('categoryModal').classList.remove('hidden');
+        }
+        
+        // Close modal
+        function closeModal() {
+            document.getElementById('categoryModal').classList.add('hidden');
+        }
+        
+        // Update icon preview
+        function updateIconPreview() {
+            const iconSelect = document.getElementById('categoryIcon');
+            const iconPreview = document.getElementById('iconPreview');
+            const selectedIcon = iconSelect.value;
+            iconPreview.innerHTML = `<i class="fas ${selectedIcon}"></i>`;
+        }
+        
+        // Handle form submission
+        document.getElementById('categoryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const id = document.getElementById('categoryId').value;
+            const name = document.getElementById('categoryName').value;
+            const slug = document.getElementById('categorySlug').value;
+            const icon = document.getElementById('categoryIcon').value;
+            const status = document.getElementById('categoryStatus').value;
+            
+            if (id) {
+                // Editing existing category
+                alert(`Category ${id} updated successfully!\nName: ${name}\nSlug: ${slug}\nStatus: ${status}`);
+            } else {
+                // Adding new category
+                alert(`New category added successfully!\nName: ${name}\nSlug: ${slug}\nStatus: ${status}`);
+            }
+            
+            // Close modal
+            closeModal();
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('categoryModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
         
         // Navigation item active state
         document.querySelectorAll('.nav-item').forEach(button => {
@@ -856,9 +932,10 @@
             });
         });
         
-        // Initialize dashboard as active
+        // Initialize category submenu as open
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('a[href="adminDashboard.html"] .nav-item').classList.add('active');
+            document.getElementById('categorySubmenu').classList.remove('hidden');
+            document.getElementById('categoryChevron').classList.add('rotate-180');
         });
     </script>
 </body>
